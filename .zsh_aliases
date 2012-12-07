@@ -1,0 +1,54 @@
+
+# Pour changer de repertoire rapidement
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias .......='cd ../../../../../..'
+
+#Rainbow Unicorn
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+#Plus ou moins deprecated
+alias s='scite'
+alias sls='_run_SciTE'
+
+#ls stuff
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lal='ls -al'
+
+#Évite les accidents
+alias rm='rm -i'
+alias gis='git status'
+
+#Git stuff
+alias gil='git log'
+alias gip='git pull'
+alias gipu='git push'
+alias gic='git commit'
+alias gich='git checkout'
+alias gib='git branch'
+
+#Ouverture auto en tapant ./toto.ext
+alias -s txt="less"
+alias -s pdf="evince"
+alias -s h="vim"
+alias -s c="vim"
+alias -s cpp="vim"
+
+#Vim stuff
+alias vim="vim -i NONE"
+alias v="vim"
+alias vls="_run_vim"
+
+#Parce que calc > bc
+alias calc="bc -l"
+
+#Évite certaines correction désagréables de zsh
+alias apt-get="nocorrect apt-get"
+alias sudo="nocorrect sudo"

@@ -1,4 +1,4 @@
-configFiles
+Mes fichiers de configuration
 ===========
 
-Dépot de mes configs
+Dépot de mes fichiers de configuration

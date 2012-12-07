@@ -1,0 +1,9 @@
+
+#Helper pour lancer les éditeurs sur de précédentes sessions.
+_run_SciTE() {
+scite -loadsession:$1
+}
+
+_run_vim() {
+vim -S $1
+}

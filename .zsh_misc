@@ -1,0 +1,45 @@
+
+#Autocompletion sur certains noms de domaine (plus que de ne pas hasher le known_host), permet aussi d'activer la completion sur scp.
+zstyle -e ':completion:*' hosts 'reply=(telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr incas idfreeze)'
+
+#History stuff
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+
+#Parce que trop d'autocompletion tue l'autocompletion
+fignore=(.ali .o .toc .aux)
+
+#Ctrl+left/right is back !
+bindkey ';5D' backward-word
+bindkey ';5C' forward-word
+
+#Less plus sympatoche (less sur tgz, zip and co) : 
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+#PS1 sexy ([heure]:path/to/directory)
+export PS1="[%T]:%~$ "
+#Je suis pas perdu (login@host)
+export RPS1="(%n@%M)"
+
+
+#Ajoute plein d'endroits sympas au path du linker
+export LD_LIBRARY_PATH=$BOOST_INSTALL:$BOOST_INSTALL/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib:$LD_LIBRARY_PATH
+
+#Ajoute plein d'endroits sympas au path
+export PATH=$JAVA_HOME/bin:$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
+
+
+
+#La speciale Ensimag :
+mesg n
+
+
+
+
+#Probablement inutile
+export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
+export CBLAS_CPPFLAGS="-I/usr/include/atlas"
+export BOOST_INSTALL=$HOME/local
+export JAVA_HOME=/usr/lib/jvm/java-6-sun

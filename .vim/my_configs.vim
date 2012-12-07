@@ -14,4 +14,9 @@ inoremap $q ''<esc>i
 inoremap $e ""<esc>i
 inoremap $t <><esc>i
 
+"Map jj sur echap, plus confortable
 inoremap jj <esc>
+
+"Quit rapide
+map <leader>q :qa<cr>
+map <leader>ss :mksession<cr>
