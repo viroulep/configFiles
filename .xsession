@@ -1,5 +1,17 @@
 export PATH=$HOME/bin:$PATH
+
+#Disable this sh*t
 xset -b &
-pactl set-sink-volume 0 '40%' &
+
+#Creating i3 config with correct volume bindings
+cat $HOME/.i3/config-base > $HOME/.i3/config
+if which pactl; then
+    pactl set-sink-volume 0 '40%' &
+    cat $HOME/.i3/config-pa >> $HOME/.i3/config;
+else
+#TODO set audio volume alsa
+    cat $HOME/.i3/config-alsa >> $HOME/.i3/config;
+fi
+
 exec /usr/bin/i3
 
