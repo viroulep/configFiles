@@ -5,11 +5,12 @@ xset -b &
 
 #Creating i3 config with correct volume bindings
 cat $HOME/.i3/config-base > $HOME/.i3/config
-if which pactl; then
+#if which pactl; then
+if [ "`hostname`" != "my-laptop" ]; then
     pactl set-sink-volume 0 '40%' &
     cat $HOME/.i3/config-pa >> $HOME/.i3/config;
 else
-#TODO set audio volume alsa
+    amixer -q set Master 40% unmute
     cat $HOME/.i3/config-alsa >> $HOME/.i3/config;
 fi
 
