@@ -6,6 +6,9 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 alias .......='cd ../../../../../..'
 
+#Infos des batteries
+alias batinfo='_display_power_status'
+
 #Rainbow Unicorn
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
