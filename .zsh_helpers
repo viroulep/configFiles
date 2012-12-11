@@ -11,18 +11,20 @@ vim -S $1
 _display_power_status() {
 
     for dev in `ls /sys/class/power_supply`; do
-        if [ "AC" != $dev ]; then
-            echo $dev
-            BAT_FULL=`cat /sys/class/power_supply/$dev/uevent | grep "CHARGE_FULL=" | sed 's/POWER_SUPPLY_CHARGE_FULL=//'`
-            BAT_NOW=`cat /sys/class/power_supply/$dev/uevent | grep "CHARGE_NOW=" | sed 's/POWER_SUPPLY_CHARGE_NOW=//'`
-            #echo $BAT_FULL
-            #echo $BAT_NOW
-            BAT_PERCENT=`bc -l <<-EOF
+        BAT_FULL=`cat /sys/class/power_supply/$dev/uevent | grep "CHARGE_FULL=" | sed 's/POWER_SUPPLY_CHARGE_FULL=//'`
+        BAT_NOW=`cat /sys/class/power_supply/$dev/uevent | grep "CHARGE_NOW=" | sed 's/POWER_SUPPLY_CHARGE_NOW=//'`
+        #Check if device is actually a battery (not AC)
+        if [ "$BAT_FULL" = "" ]; then
+            continue;
+        fi
+        #echo $BAT_FULL
+        #echo $BAT_NOW
+        echo $dev
+        BAT_PERCENT=`bc -l <<-EOF
 scale=2
 ($BAT_NOW/$BAT_FULL)*100.0
 EOF`
-            echo $BAT_PERCENT"%"
-        fi
+        echo $BAT_PERCENT"%"
     done
 
 }
