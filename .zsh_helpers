@@ -8,6 +8,10 @@ _run_vim() {
 vim -S $1
 }
 
+_do_suspend_ram() {
+    sudo sh -c "echo -n \"mem\" >/sys/power/state";
+}
+
 _display_power_status() {
 
     for dev in `ls /sys/class/power_supply`; do

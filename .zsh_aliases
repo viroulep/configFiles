@@ -9,6 +9,9 @@ alias .......='cd ../../../../../..'
 #Infos des batteries
 alias batinfo='_display_power_status'
 
+#Infos des batteries
+alias ramsuspend='_do_suspend_ram'
+
 #Rainbow Unicorn
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
