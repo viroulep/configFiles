@@ -10,7 +10,10 @@ alias .......='cd ../../../../../..'
 alias batinfo='_display_power_status'
 
 #Infos des batteries
-alias ramsuspend='_do_suspend_ram'
+alias suspendtoram='_do_suspend_ram'
+
+#Configuration auto des écrans
+alias screen='_configure_displays'
 
 #Rainbow Unicorn
 alias ls='ls --color=auto'

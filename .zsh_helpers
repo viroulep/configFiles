@@ -32,3 +32,27 @@ EOF`
     done
 
 }
+
+_configure_displays() {
+    if [ "$#" -eq "0" ]; then
+        echo "Liste des ecrans disponibles :"
+        xrandr | grep "connected" | sed 's/\([A-Z]\+[-]\?[0-9]*\) \(\(dis\)\?connected\).*/\1 (\2)/'
+    elif [ "$#" -ne "2" ]; then
+        echo "Usage : ./script\n\tListe les écrans"
+        echo "Usage : ./script ecran_interne ecran_externe\n\tConfigure l'affichage des écrans"
+    else
+        EXTERNAL_OUTPUT="$2"
+        INTERNAL_OUTPUT="$1" 
+
+        xrandr | grep $EXTERNAL_OUTPUT | grep " connected "
+        EXTERN_PRESENT=$?
+        xrandr | grep $INTERNAL_OUTPUT | grep " connected "
+        INTERN_PRESENT=$?
+        if [ $EXTERN_PRESENT -eq 0 -a $INTERN_PRESENT -eq 0 ]; then
+            xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --left-of $INTERNAL_OUTPUT
+            echo "Configuration terminée"
+        else
+            echo "L'un des deux ecrans n'est pas présent."
+        fi
+    fi
+}
