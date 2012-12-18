@@ -9,6 +9,9 @@ vim -S $1
 }
 
 _do_suspend_ram() {
+    #sudo pour avoir le prompt du password avant le lock
+    sudo sh -c "echo \"Mise en veille et verrouillage de l'écran.\"";
+    i3-msg workspace 10 > /dev/null && i3lock -c 111111;
     sudo sh -c "echo -n \"mem\" >/sys/power/state";
 }
 
