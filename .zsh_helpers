@@ -28,7 +28,7 @@ _display_power_status() {
         #echo $BAT_NOW
         echo $dev
         BAT_PERCENT=`bc -l <<-EOF
-scale=2
+scale=4
 ($BAT_NOW/$BAT_FULL)*100.0
 EOF`
         echo $BAT_PERCENT"%"
