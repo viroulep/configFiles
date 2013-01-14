@@ -1,6 +1,6 @@
 
 #Autocompletion sur certains noms de domaine (plus que de ne pas hasher le known_host), permet aussi d'activer la completion sur scp.
-zstyle -e ':completion:*' hosts 'reply=(telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr incas idfreeze)'
+zstyle -e ':completion:*' hosts 'reply=(telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr idkoiff.imag.fr incas idfreeze idkoiff)'
 
 #History stuff
 HISTFILE=~/.zsh_history
