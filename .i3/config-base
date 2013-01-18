@@ -81,6 +81,8 @@ bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
 bindsym $mod+i workspace "web"
 bindsym $mod+n workspace "shell"
+bindsym $mod+comma workspace "vim"
+bindsym $mod+u workspace "crap"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -95,6 +97,8 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+i move container to workspace "web"
 bindsym $mod+Shift+n move container to workspace "shell"
+bindsym $mod+Shift+comma move container to workspace "vim"
+bindsym $mod+Shift+u move container to workspace "crap"
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
