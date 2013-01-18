@@ -1,10 +1,11 @@
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/.i3/:$PATH
 
 #Disable this sh*t
 xset -b &
 
 #Creating i3 config with correct volume bindings
 cat $HOME/.i3/config-base > $HOME/.i3/config
+
 #if which pactl; then
 if [ "`hostname`" != "my-laptop" ]; then
     pactl set-sink-volume 0 '40%' &
