@@ -1,0 +1,2 @@
+#!/bin/bash
+    i3-msg -t get_workspaces | sed -e 's/:{[^{}]*},/toto/g' -e 's/{[^{}]*name":"\([a-zA-Z0-9]*\)"[^{}]*}/\1/g' -e 's/\[\(.*\)\]/\1/g' -e 's/,/\n/g'
