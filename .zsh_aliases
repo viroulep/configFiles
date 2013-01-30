@@ -15,6 +15,12 @@ alias suspendtoram='_do_suspend_ram'
 #Configuration auto des écrans
 alias screen='_configure_displays'
 
+#Screen saver
+alias screensaver='_screensaver'
+
+#Pas de screen saver (pour les films etc)
+alias noscreensaver='_disable_screensaver'
+
 #Rainbow Unicorn
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

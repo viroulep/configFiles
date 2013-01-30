@@ -1,5 +1,14 @@
 
 #Helper pour lancer les éditeurs sur de précédentes sessions.
+
+_screensaver() {
+    sleep 1; xset dpms force off
+}
+
+_disable_screensaver() {
+    xset -dpms; xset s off
+}
+
 _run_SciTE() {
 scite -loadsession:$1
 }
