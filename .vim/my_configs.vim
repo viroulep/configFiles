@@ -18,7 +18,16 @@ inoremap $t <><esc>i
 inoremap jj <esc>
 
 "` pas assez accessible...
-map " `
+"map "" `
+
+"Paste system clipboard
+map <leader>p "+p
+
+"Copy to system clipboard
+map <leader>y "+y
+
+"Delete to system clipboard
+map <leader>dd "+dd
 
 "Quit rapide
 map <leader>q :qa<cr>

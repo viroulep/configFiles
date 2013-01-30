@@ -1,5 +1,5 @@
 #!/bin/sh
-FILES=".zshrc .zsh_aliases .zsh_helpers .zsh_misc .gitconfig .xsession .i3 .i3status.conf .vim .vimrc"
+FILES=".vimperatorrc .zshrc .zsh_aliases .zsh_helpers .zsh_misc .gitconfig .xsession .i3 .i3status.conf .vim .vimrc"
 DIR=`pwd`
 for f in $FILES;
 do
