@@ -1,6 +1,11 @@
 
 #Helper pour lancer les éditeurs sur de précédentes sessions.
 
+_compute_average() {
+    #Calcul la moyenne des nombres sur la première colonne du fichier
+    awk '{sum+=$1; ++n;} END {print sum/n}' $1
+}
+
 _screensaver() {
     sleep 1; xset dpms force off
 }
