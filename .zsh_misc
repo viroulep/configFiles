@@ -34,7 +34,7 @@ export PATH=/usr/local/bin:$PATH
 
 #La speciale Ensimag :
 mesg n
-
+xset -b
 
 
 

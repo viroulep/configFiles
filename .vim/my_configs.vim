@@ -20,6 +20,8 @@ inoremap jj <esc>
 "` pas assez accessible...
 "map "" `
 
+nmap <leader>' `.
+
 "Paste system clipboard
 map <leader>p "+p
 
