@@ -15,5 +15,6 @@ else
     cat $HOME/.i3/config-alsa >> $HOME/.i3/config;
 fi
 
-exec /usr/bin/i3 --shmlog-size=26214400
+exec /usr/local/bin/i3 --shmlog-size=26214400
+#exec $HOME/local/bin/i3 --shmlog-size=26214400
 

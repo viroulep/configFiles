@@ -82,7 +82,6 @@ bindsym $mod+agrave workspace 10
 bindsym $mod+i workspace "web"
 bindsym $mod+n workspace "shell"
 bindsym $mod+comma workspace "vim"
-bindsym $mod+u workspace "crap"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -98,7 +97,6 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+i move container to workspace "web"
 bindsym $mod+Shift+n move container to workspace "shell"
 bindsym $mod+Shift+comma move container to workspace "vim"
-bindsym $mod+Shift+u move container to workspace "crap"
 
 # reload the configuration file
 #bindsym $mod+Shift+C reload
@@ -169,6 +167,18 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 bindsym $mod+parenright exec /usr/bin/xbacklight -inc 10
 bindsym $mod+equal exec /usr/bin/xbacklight -dec 5
+
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+U move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+p scratchpad show
+
+# Show all scratchpaded windows
+bindsym $mod+Shift+P [title=".*"] scratchpad show
+
+# Show spot.
+bindsym $mod+u [title="^Spot"] scratchpad show
 
 #Set wallpaper
 exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png
