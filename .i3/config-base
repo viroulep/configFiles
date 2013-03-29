@@ -9,7 +9,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+A kill
@@ -80,6 +80,7 @@ bindsym $mod+underscore workspace 8
 bindsym $mod+ccedilla workspace 9
 bindsym $mod+agrave workspace 10
 bindsym $mod+i workspace "web"
+bindsym $mod+o workspace "IM"
 bindsym $mod+n workspace "shell"
 bindsym $mod+comma workspace "vim"
 
@@ -95,6 +96,7 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 bindsym $mod+Shift+i move container to workspace "web"
+bindsym $mod+Shift+o move container to workspace "IM"
 bindsym $mod+Shift+n move container to workspace "shell"
 bindsym $mod+Shift+comma move container to workspace "vim"
 
