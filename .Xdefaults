@@ -4,7 +4,7 @@ urxvt*background:       #000000
 urxvt*foreground:       #ffffff
 urxvt*scrollBar:        false
 urxvt*perl-lib:         /usr/lib/urxvt/perl/
-urxvt*perl-ext-common:  default,matcher
+urxvt*perl-ext-common:  default,matcher,clipboard
 urxvt*urlLauncher:      /usr/bin/dwb
 urxvt*matcher.button:   1
 urxvt*saveLines:        10000
@@ -37,3 +37,6 @@ urxvt*color12:          #4186be
 urxvt*color13:          #cf9ebe
 urxvt*color14:          #71bebe
 urxvt*color15:          #ffffff
+
+urxvt.keysym.Control-v: perl:clipboard:paste
+urxvt.iso14755: False

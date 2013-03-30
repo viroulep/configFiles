@@ -18,19 +18,22 @@ inoremap $t <><esc>i
 inoremap jj <esc>
 
 "` pas assez accessible...
-"map "" `
+nnoremap " `
 
 nmap <leader>' `.
 
 "Paste system clipboard
-map <leader>p "+p
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
 
 "Copy to system clipboard
-map <leader>y "+y
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
 
 "Delete to system clipboard
-map <leader>dd "+dd
+nnoremap <leader>dd "+dd
+vnoremap <leader>dd "+dd
 
 "Quit rapide
-map <leader>q :qa<cr>
-map <leader>ss :mksession<cr>
+nnoremap <leader>q :qa<cr>
+nnoremap <leader>ss :mksession<cr>

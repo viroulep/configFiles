@@ -1,2 +1,5 @@
 .vim/temp_dirs/undodir/%*
 .vim/temp_dirs/yankring_history_v2.txt
+.config/dwb/default
+.config/dwb/userscript
+.config/dwb/mimetypes
