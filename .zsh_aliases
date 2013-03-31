@@ -39,9 +39,9 @@ alias lal='ls -al'
 
 #Évite les accidents
 alias rm='rm -i'
-alias gis='git status'
 
 #Git stuff
+alias gis='git status'
 alias gil='git log'
 alias gip='git pull'
 alias gipu='git push'
@@ -67,3 +67,7 @@ alias calc="bc -l"
 #Évite certaines correction désagréables de zsh
 alias apt-get="nocorrect apt-get"
 alias sudo="nocorrect sudo"
+alias man="nocorrect man"
+
+#Restore la derniere session si sauvegardée
+alias dwb="dwb -r"

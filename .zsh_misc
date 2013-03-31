@@ -18,10 +18,15 @@ bindkey ';5C' forward-word
 #Less plus sympatoche (less sur tgz, zip and co) : 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+YELLOW="%{"$'\e[0;38;5;214m'"%}"
+LIGHT_BLUE="%{"$'\e[0;38;5;33m'"%}"
+PINK="%{"$'\e[1;38;5;204m'"%}"
+GREEN="%{"$'\e[1;38;5;34m'"%}"
+RESET="%{"$'\e[0m'"%}"
 #PS1 sexy ([heure]:path/to/directory)
-export PS1="[%T]:%~$ "
+export PS1="[${YELLOW}%T${RESET}:${LIGHT_BLUE}%~${RESET}$ "
 #Je suis pas perdu (login@host)
-export RPS1="(%n@%M)"
+export RPS1="(${PINK}%n${RESET}@${GREEN}%M${RESET})"
 
 
 #Ajoute plein d'endroits sympas au path du linker
