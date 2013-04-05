@@ -6,18 +6,19 @@ set nu
 
 
 " Map auto complete of (, ", ', [
-inoremap $f ()<esc>i
-inoremap $s []<esc>i
-inoremap $d {}<esc>i
-inoremap $j {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
-inoremap $t <><esc>i
+inoremap $( ()<esc>i
+inoremap $é []<esc>i
+"inoremap $d {}<esc>i
+inoremap $& {<esc>o}<esc>O
+inoremap $' ''<esc>i
+inoremap $" ""<esc>i
+inoremap $< <><esc>i
 
 "Map jj sur echap, plus confortable
 inoremap jj <esc>
 
 "` pas assez accessible...
+onoremap " `
 nnoremap " `
 
 nmap <leader>' `.
