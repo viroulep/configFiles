@@ -14,6 +14,8 @@ alias suspendtoram='_do_suspend_ram'
 
 #Configuration auto des écrans
 alias screen='_configure_displays'
+compdef _xrandr_outputs _configure_displays 
+
 
 #Screen saver
 alias screensaver='_screensaver'

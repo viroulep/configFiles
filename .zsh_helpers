@@ -73,3 +73,10 @@ _configure_displays() {
         fi
     fi
 }
+
+_xrandr_outputs() {
+    local vals
+    vals=( ${(f)"$(xrandr | grep 'connected' | cut -d' ' -f1)"} )
+    _describe -t outputs 'outputs' vals && return 0
+}
+
