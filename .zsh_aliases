@@ -52,7 +52,8 @@ alias gib='git branch'
 
 #Ouverture auto en tapant ./toto.ext
 alias -s txt="less"
-alias -s pdf="evince"
+alias -s pdf="zathura"
+alias -s png="geeqie"
 alias -s h="vim"
 alias -s c="vim"
 alias -s cpp="vim"

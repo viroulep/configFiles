@@ -19,6 +19,7 @@ bindkey '^H' backward-delete-char
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
+bindkey -v '^R' history-incremental-search-backward
 bindkey -v '\b' backward-delete-char
 bindkey -v '^?' backward-delete-char
 bindkey -v "^[[3~" delete-char
@@ -27,4 +28,5 @@ bindkey -a 'gg' beginning-of-buffer-or-history
 bindkey -a G end-of-buffer-or-history
 bindkey -a u undo
 bindkey -a '^R' redo
+bindkey -a '\ ' vi-history-search-backward
 
