@@ -1,33 +1,19 @@
-
-#Autocompletion sur certains noms de domaine (plus que de ne pas hasher le known_host), permet aussi d'activer la completion sur scp.
-zstyle -e ':completion:*' hosts 'reply=(telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr idkoiff.imag.fr incas idfreeze idkoiff)'
-
-#History stuff
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
-
-
-#Parce que trop d'autocompletion tue l'autocompletion
-fignore=(.ali .o .toc .aux)
-
-#Ctrl+left/right is back !
-bindkey ';5D' backward-word
-bindkey ';5C' forward-word
-
-#Less plus sympatoche (less sur tgz, zip and co) : 
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
+#Colors
 YELLOW="%{"$'\e[0;38;5;214m'"%}"
 LIGHT_BLUE="%{"$'\e[0;38;5;33m'"%}"
+LIGHT_BLUE_INS="%{"$'\e[1;38;5;87m'"%}"
 PINK="%{"$'\e[1;38;5;204m'"%}"
 GREEN="%{"$'\e[1;38;5;34m'"%}"
 RESET="%{"$'\e[0m'"%}"
+
 #PS1 sexy ([heure]:path/to/directory)
 export PS1="[${YELLOW}%T${RESET}:${LIGHT_BLUE}%~${RESET}$ "
 #Je suis pas perdu (login@host)
-export RPS1="(${PINK}%n${RESET}@${GREEN}%M${RESET})"
+export RPS1_INS="(${PINK}%n${RESET}@${LIGHT_BLUE_INS}%M${RESET})"
+export RPS1_CMD="(${PINK}%n${RESET}@${GREEN}%M${RESET})"
+export RPS1=$RPS1_INS
 
+#Rainbow unicorn
 export LESS_TERMCAP_mb=$'\E[01;31m'             # begin blinking
 export LESS_TERMCAP_md=$'\E[01;31m'             # begin bold
 export LESS_TERMCAP_me=$'\E[0m'                 # end mode
@@ -36,22 +22,15 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'          # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline 
 
+#Probablement inutile
+export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
+export CBLAS_CPPFLAGS="-I/usr/include/atlas"
+export BOOST_INSTALL=$HOME/local
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+
 #Ajoute plein d'endroits sympas au path du linker
 export LD_LIBRARY_PATH=$BOOST_INSTALL:$BOOST_INSTALL/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib:$LD_LIBRARY_PATH
 
 #Ajoute plein d'endroits sympas au path
 export PATH=$JAVA_HOME/bin:$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
 export PATH=/usr/local/bin:$PATH
-
-
-#La speciale Ensimag :
-mesg n
-xset -b
-
-
-
-#Probablement inutile
-export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
-export CBLAS_CPPFLAGS="-I/usr/include/atlas"
-export BOOST_INSTALL=$HOME/local
-export JAVA_HOME=/usr/lib/jvm/java-6-sun

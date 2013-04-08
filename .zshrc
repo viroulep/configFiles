@@ -26,11 +26,34 @@ zstyle ':completion:*:processes' command 'ps --sort -pid'
 setopt hist_verify  appendhistory autocd hist_ignore_all_dups extendedglob correctall nomatch
 unsetopt beep extendedglob notify rm_star_silent
 
+#Autocompletion sur certains noms de domaine (plus safe que de ne pas hasher le known_host),
+#permet aussi d'activer la completion sur scp.
+zstyle -e ':completion:*' hosts 'reply=(telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr idkoiff.imag.fr incas idfreeze idkoiff)'
+
+#History stuff
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+
+#Parce que trop d'autocompletion tue l'autocompletion
+fignore=(.ali .o .toc .aux)
+
+#Less plus sympatoche (less sur tgz, zip and co) : 
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+#La speciale Ensimag :
+mesg n
+xset -b
+
+#Variables globales
+source $HOME/.zsh_global
+
 #Chargment helpers
 source $HOME/.zsh_helpers
 
-#Trucs en vrac
-source $HOME/.zsh_misc
-
 #Alias
 source $HOME/.zsh_aliases
+
+#ZLE
+source $HOME/.zsh_zle
