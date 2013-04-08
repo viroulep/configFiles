@@ -57,3 +57,7 @@ source $HOME/.zsh_aliases
 
 #ZLE
 source $HOME/.zsh_zle
+
+compdef _xrandr_outputs _configure_displays 
+compdef '_files -g "*.pdf"' zathura
+compdef '_files -g "*.pdf"' evince
