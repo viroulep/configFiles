@@ -1,0 +1,10 @@
+set status_display_program=cmus-now-playing.sh
+bind -f common + vol +5%
+bind -f common - vol -5%
+bind -f common = vol +5%
+bind -f common b player-prev
+bind -f common c player-stop
+bind -f common m win-toggle
+bind -f common v player-pause
+bind -f common w player-next
+bind -f common x player-play
