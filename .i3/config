@@ -66,7 +66,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+q focus parent
 
 # focus the child container
-bindcode $mod+w focus child
+#bindcode $mod+w focus child
 
 # switch to workspace
 bindsym $mod+ampersand workspace 1
@@ -145,10 +145,10 @@ bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b`"
 bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b`"
 
 #Chromium setup
-assign [class="^Chromium"] IM
+#assign [class="^Chromium"] IM
 
 #Move workspace to next output
-bindsym $mod+x move workspace to output right
+#bindsym $mod+x move workspace to output right
 
 #Focus doesn't follow mouse
 focus_follows_mouse no
@@ -168,27 +168,27 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym Mod4+Tab workspace back_and_forth
 
 #Brightness keybindings
-bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
-bindsym $mod+parenright exec /usr/bin/xbacklight -inc 10
-bindsym $mod+equal exec /usr/bin/xbacklight -dec 5
+#bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
+#bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
+#bindsym $mod+parenright exec /usr/bin/xbacklight -inc 10
+#bindsym $mod+equal exec /usr/bin/xbacklight -dec 5
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+U move scratchpad
+#bindsym $mod+Shift+U move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+p scratchpad show
+#bindsym $mod+p scratchpad show
 
 # Show all scratchpaded windows
-bindsym $mod+Shift+P [title=".*"] scratchpad show
+#bindsym $mod+Shift+P [title=".*"] scratchpad show
 
 # Show spot.
-bindsym $mod+u [title="^Spot"] scratchpad show
+#bindsym $mod+u [title="^Spot"] scratchpad show
 
 #Set wallpaper
-exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png
+exec --no-startup-id feh --bg-max $HOME/Images/wallpaper.png
 #Start NetworkManager applet
-exec nm-applet
+#exec nm-applet
 #Keybinding for alsa
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute

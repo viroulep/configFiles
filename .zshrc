@@ -44,7 +44,7 @@ fignore=(.ali .o .toc .aux)
 
 #La speciale Ensimag :
 mesg n
-xset -b
+#xset -b
 
 #Variables globales
 source $HOME/.zsh_global

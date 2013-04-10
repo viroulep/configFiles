@@ -7,8 +7,8 @@ ulimit -c 0
 xset -b &
 
 #Initialize sound
-amixer -q set Master 40% unmute
+#amixer -q set Master 40% unmute
 
-exec /usr/local/bin/i3 --shmlog-size=26214400
+exec /usr/bin/i3 --shmlog-size=26214400
 #exec $HOME/local/bin/i3 --shmlog-size=26214400
 

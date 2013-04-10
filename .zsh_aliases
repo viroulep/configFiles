@@ -1,3 +1,5 @@
+#Rasp Pi
+alias omxplayer='run_omx.sh'
 
 # Pour changer de repertoire rapidement
 alias ...='cd ../..'
