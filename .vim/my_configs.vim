@@ -37,4 +37,4 @@ vnoremap <leader>dd "+dd
 
 "Quit rapide
 nnoremap <leader>q :qa<cr>
-nnoremap <leader>ss :mksession<cr>
+nnoremap <leader>ss :mksession!<cr>
