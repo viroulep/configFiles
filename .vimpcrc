@@ -1,0 +1,15 @@
+set window playlist
+set autoscroll
+set colour
+set hlsearch
+set searchwrap
+set ignorecase
+set smartcase
+set stoponquit
+set sortignorethe
+set sortignorecase
+set songformat {%a - %b - %t}|{%f}$E$R $H[$H%l$H]$H
+
+map J gt
+map K gT
+map p :play
