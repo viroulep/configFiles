@@ -140,6 +140,11 @@ bar {
 }
 
 #Personnal setup
+#Borders...
+new_window none
+new_float none
+hide_edge_borders both
+
 #Workspaces++ (see scripts)
 bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b`"
 bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b`"

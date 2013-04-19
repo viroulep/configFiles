@@ -23,6 +23,9 @@ nnoremap " `
 
 nmap <leader>' `.
 
+nnoremap <leader>> :vertical resize +2<cr>
+nnoremap <leader>< :vertical resize -2<cr>
+
 "Paste system clipboard
 nnoremap <leader>p "+p
 vnoremap <leader>p "+p
