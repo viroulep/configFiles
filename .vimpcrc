@@ -3,13 +3,15 @@ set autoscroll
 set colour
 set hlsearch
 set searchwrap
+set nomouse
 set ignorecase
 set smartcase
-set stoponquit
+set nostoponquit
 set sortignorethe
 set sortignorecase
 set songformat {%a - %b - %t}|{%f}$E$R $H[$H%l$H]$H
 
 map J gt
 map K gT
-map p :play
+map p :play 1<Enter>
+map = +

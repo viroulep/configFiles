@@ -7,4 +7,7 @@ if [ "$NP" == "" ]; then
         NP="$NP_ARTIST - $NP_TITLE"
     fi
 fi
+if [ "$NP" == "" ]; then
+    NP=`mpc status | grep -v -e "volume" -e "\[playing\]"`
+fi
 echo $NP
