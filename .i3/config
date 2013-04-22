@@ -9,7 +9,7 @@ font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec urxvtc
 
 # kill focused window
 bindsym $mod+Shift+A kill
@@ -188,7 +188,7 @@ bindsym $mod+p scratchpad show
 bindsym $mod+Shift+P [title=".*"] scratchpad show
 
 # Show spot.
-bindsym $mod+u [title="^Spot"] scratchpad show
+bindsym $mod+u [title="Spot|vimpc"] scratchpad show
 
 #Set wallpaper
 exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png

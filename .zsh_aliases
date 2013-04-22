@@ -73,3 +73,6 @@ alias man="nocorrect man"
 
 #Restore la derniere session si sauvegardée
 alias dwb="dwb -r"
+
+#Change le titre de la fenêtre
+alias vimpc="wname vimpc; vimpc"
