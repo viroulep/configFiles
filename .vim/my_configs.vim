@@ -10,6 +10,7 @@ inoremap $( ()<esc>i
 inoremap $é []<esc>i
 "inoremap $d {}<esc>i
 inoremap $& {<esc>o}<esc>O
+inoremap $1 <esc>o{<esc>o}<esc>O
 inoremap $' ''<esc>i
 inoremap $" ""<esc>i
 inoremap $< <><esc>i
@@ -23,8 +24,8 @@ nnoremap " `
 
 nmap <leader>' `.
 
-nnoremap <leader>> :vertical resize +2<cr>
-nnoremap <leader>< :vertical resize -2<cr>
+nnoremap <leader>> :vertical resize +5<cr>
+nnoremap <leader>< :vertical resize -5<cr>
 
 "Paste system clipboard
 nnoremap <leader>p "+p
@@ -41,3 +42,11 @@ vnoremap <leader>dd "+dd
 "Quit rapide
 nnoremap <leader>q :qa<cr>
 nnoremap <leader>ss :mksession!<cr>
+
+"Folding
+set fdm=syntax
+noremap <leader>l zo
+noremap <leader>L zO
+noremap <leader>h zc
+noremap <leader>H zC
+

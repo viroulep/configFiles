@@ -137,13 +137,16 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command .i3/run_i3status.sh
+        colors {
+            focused_workspace #4a193f #772865 #ffffff
+        }
 }
 
 #Personnal setup
 #Borders...
-new_window none
-new_float none
-hide_edge_borders both
+new_window pixel 1
+new_float pixel 1
+hide_edge_borders none
 
 #Workspaces++ (see scripts)
 bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b`"
@@ -198,3 +201,6 @@ exec nm-applet
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
+
+client.focused #4a193f #772865 #ffffff #772865
+client.focused_inactive #333333 #222222 #888888 #292d2e

@@ -13,4 +13,4 @@ if [ "$NP" == "" ]; then
         NP="Not Playing"
     fi
 fi
-echo $NP
+echo $NP | sed 's/"/\\\"/g'
