@@ -29,7 +29,7 @@ export BOOST_INSTALL=$HOME/local
 export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 #Ajoute plein d'endroits sympas au path du linker
-export LD_LIBRARY_PATH=$BOOST_INSTALL:$BOOST_INSTALL/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$BOOST_INSTALL:$BOOST_INSTALL/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
 
 #Ajoute plein d'endroits sympas au path
 export PATH=$JAVA_HOME/bin:$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH

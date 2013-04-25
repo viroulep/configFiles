@@ -10,6 +10,7 @@ set nostoponquit
 set sortignorethe
 set sortignorecase
 set songformat {%a - %b - %t}|{%f}$E$R $H[$H%l$H]$H
+set playlists all
 
 map J gt
 map K gT
