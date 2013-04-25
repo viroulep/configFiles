@@ -13,7 +13,7 @@ alias batinfo='_display_power_status'
 alias suspendtoram='_do_suspend_ram'
 
 #Configuration auto des écrans
-alias screen='_configure_displays'
+alias setupscreens='_configure_displays'
 
 
 #Screen saver
