@@ -1,0 +1,1089 @@
+#! perl
+
+# urxvi: keyboard-centric navigation and selection for urxvt.
+
+# Author: Chip Camden <sterling@camdensoftware.com>
+
+use IO::Handle;
+use File::Basename;
+use Text::Tabs;
+require Term::Cap;
+
+use constant {
+  MK_SHIFT   => 0x00010000,
+  MK_CONTROL => 0x00020000,
+  MK_MOD4    => 0x00040000,
+  MK_ALT     => 0x00080000,
+};
+
+sub on_user_command {
+  my ($self, $cmd) = @_;
+  if ($cmd =~ s/^urxvi\b//) {
+    if ($self->{urxvi}) {
+      $self->quit;
+    } else {
+      my $urxvi = {};
+      my $status = {};
+      my $terminal = Tgetent Term::Cap;
+      # turn the cursor on
+      $self->cmd_parse($self->locale_encode($terminal->Tputs('ve')));
+      my @cursor = $self->screen_cur;
+      $self->{orig_cursor_pos} = \@cursor;
+      $self->logical_cursor(@cursor[0],@cursor[1]);
+      $self->{view_start} = $self->view_start;
+      $status->{rend} = urxvt::OVERLAY_RSTYLE;
+      $status->{window} = $self->overlay(
+			     0, 0, $self->ncol, 1, $status->{rend}, 0
+			     );
+
+      $urxvi->{status} = $status;
+      $urxvi->{select_mode} = '';
+      $self->{urxvi} = $urxvi;
+      $self->{cmd_mode} = ();
+      $self->trigger("start");
+      $self->update();
+    }
+  }
+  ()
+}
+
+sub on_key_press {
+  my ($self, $event, $keysym) = @_;
+  my $urxvi = $self->{urxvi};
+  if ($urxvi) {
+    $self->debug_out(sprintf("keypress: %04x\n", $keysym));
+    $self->{last_event} = $event;
+    if (($keysym > 0xffe0) && ($keysym < 0xfff0)) {
+      $self->{metakeys} |= $self->metacode($keysym);
+    } else {
+      my $meta = $self->{metakeys};
+      $meta &= ~MK_SHIFT if (($keysym >= 0x20) && ($keysym <= 0xff));
+      $keysym |= $meta;
+      $self->eval_key($keysym);
+    }
+    return 1;
+  }
+  ()
+}
+
+sub on_key_release {
+  my ($self, $event, $keysym) = @_;
+  if (($keysym > 0xffe0) && ($keysym < 0xfff0)) {
+    $self->{metakeys} &= ~($self->metacode($keysym));
+  }
+  $self->{urxvi};
+}
+
+sub quit {
+  my $self = shift;
+  $self->{cmd_mode} = 0;
+  $self->update;
+  $self->view_start($self->{view_start});
+  $self->screen_cur(@{ $self->{orig_cursor_pos} });
+  $self->trigger("quit");
+  $self->{urxvi} = ();
+}
+
+sub eval_key {
+  my ($self, $keysym) = @_;
+  if ($self->{cmd_mode}) {
+    if (my $keymap = $self->{cmd_keymap}->{"$keysym"}) {
+      my ($context, $cmd) = @$keymap;
+      $context->eval($cmd);
+    } else {
+      my $cmd = $self->{cmd_text};
+      my $pos = $self->{cmd_pos};
+      if ($self->{cmd_insert_mode}) {
+        $cmd = substr($cmd,0,$pos) . chr($keysym & 0xFFFF) . substr($cmd,$pos);
+      } else {
+        $cmd = substr($cmd,0,$pos) . chr($keysym & 0xFFFF) . substr($cmd,$pos+1);
+      }
+      $self->{cmd_text} = $cmd;
+      $self->{cmd_pos} = $pos+1;
+    }
+  } else {
+     $self->{repeat_touched} = 0;
+     if (!$self->trigger("keypress", $keysym)) {
+       if (my $keymap = $self->{keymap}->{"$keysym"}) {
+         my ($context, $cmd) = @$keymap;
+         $context->eval($cmd);
+       } else {
+         $self->scr_bell();
+       }
+     }
+     # if the command didn't set repeat count, clear it.
+     $self->{repeat} = 0 if !($self->{repeat_touched});
+  }
+  $self->update();
+}
+
+sub trigger {
+  my $self = shift;
+  my $event = shift;
+  my @args = @_;
+  if (my $handler = $self->{events}->{"$event"}) {
+    $self->$handler(@args);
+  }
+}
+
+sub metacode {
+  my ($self, $keysym) = @_;
+  if (($keysym == 0xffe1) || ($keysym == 0xffe2)) {
+    MK_SHIFT;
+  } elsif (($keysym == 0xffe3) || ($keysym == 0xffe4)) {
+    MK_CONTROL;
+  } elsif ($keysym == 0xffeb) {
+    MK_MOD4;
+  } elsif (($keysym == 0xffe9) || ($keysym == 0xffea)) {
+    MK_ALT;
+  } else {
+    0;
+  }
+}
+
+sub update {
+  my ($self) = @_;
+  my $urxvi = $self->{urxvi};
+  if ($urxvi)
+  {
+    my ($crow, $ccol) = $self->logical_cursor();
+    my $status = $urxvi->{status};
+    my $w = $status->{window};
+    my $sts = "urxvi | ";
+    my $rrow = $crow - $self->top_row + 1;
+    $sts .= "$crow($rrow),$ccol";
+    if ($urxvi->{select_mode}) {
+       my ($srow, $scol) = @{ $urxvi->{select_anchor} };
+       my ($brow, $bcol, $erow, $ecol) =
+          (($srow < $crow) || (($srow == $crow) && ($scol <= $ccol))) ?
+          ($srow, $scol, $crow, $ccol+1) :
+	  ($crow, $ccol, $srow, $scol+1);
+       if ($urxvi->{select_mode} eq 'line') {
+         $bcol = 0;
+	 $ecol = $self->ncol;
+       }
+       $self->selection_beg($brow, $bcol);
+       $self->selection_end($erow, $ecol);
+       $self->selection_make($self->{last_event}->{time});
+       $sts .= " | Select $brow,$bcol..$erow,$ecol";
+    }
+    $sts .= " | Repeat: $self->{repeat}" if $self->{repeat};
+    my $msg = $self->{message};
+    $sts .= " | $msg" if $msg;
+    $self->{message} = ();
+    my $rem = $self->ncol - $self->strwidth($sts);
+    $sts .= (' ' x $rem) if $rem > 0;
+    $w->set(0,0,$sts);
+    $w->show();
+    if ($self->{cmd_mode}) {
+      $crow = $self->nrow-1;
+      my $cmdlin = $self->{cmd_line};
+      if (!$cmdlin) {
+        $cmdlin = $self->overlay(0, $crow, $self->ncol, 1, urxvt::DEFAULT_RSTYLE, 0);
+        $self->{cmd_line} = $cmdlin;
+      }
+      my $prompt = $self->{cmd_prompt};
+      my $text = $self->{cmd_text};
+      $ccol = $self->{cmd_pos};
+      $ccol = 0 if ($ccol < 0);
+      $ccol = length($text) if ($ccol > length($text));
+      $self->{cmd_pos} = $ccol;
+      $ccol += length($prompt);
+      my $pad = ' ' x ($self->ncol - length($prompt) - length($text));
+      my $text = $prompt . $text . $pad;
+      my @rends = map { urxvt::DEFAULT_RSTYLE | (($_ == $ccol) ? urxvt::RS_RVid : 0) } (0..length($text));
+      $cmdlin->set(0,0, $text, \@rends);
+      $cmdlin->show();
+    } else {
+      $self->{cmd_line}->hide if $self->{cmd_line};
+      $self->screen_cur($crow, $ccol);
+    }
+    $self->want_refresh();
+  }
+}
+
+sub logical_cursor {
+  my ($self, $row, $col) = @_;
+  if (defined($row) && defined($col)) {
+    my @cursor = ($row, $col);
+    $self->{cursor_pos} = \@cursor;
+  }
+  @{ $self->{cursor_pos} };
+}
+
+sub my_resource {
+  my ($self, $name) = @_;
+  $self->x_resource ("$self->{name}.$name");
+}
+
+sub on_start {
+  my ($self) = @_;
+
+  ($self->{name} = __PACKAGE__) =~ s/.*:://;
+  $self->{name} =~ tr/_/-/;
+  $self->{urxvi} = ();
+  $self->{debug} = ($self->my_resource("debug") eq "on");
+  if ($self->{debug}) {
+    STDOUT->autoflush(1);    # disable buffering
+  }
+  $self->{debug_indent} = '';
+  $self->define_functions();
+  $self->define_keynames();
+  $self->{metakeys} = 0;
+  $self->{keymap} = {};
+  $self->{events} = {};
+  $self->source(dirname(__FILE__) . "/urxvirc");
+  $self->source($self->my_resource("rcfile") || "~/.urxvirc");
+  $self->{repeat} = 0;		# repeat count for commands
+}
+
+sub define_keynames {
+  my ($self) = @_;
+  my $k = {};
+  $k->{BS} = 0xff08;
+  $k->{Tab} = 0xff09;
+  $k->{NL} = 0xff0a;
+  $k->{FF} = 0xff0c;
+  $k->{CR} = 0xff0d;
+  $k->{Return} = 0xff0d;
+  $k->{Enter} = 0xff0d;
+  $k->{Esc} = 0xff1b;
+  $k->{Space} = 0x20;
+  $k->{Del} = 0xffff;
+  $k->{Up} = 0xff52;
+  $k->{Down} = 0xff54;
+  $k->{Left} = 0xff51;
+  $k->{Right} = 0xff53;
+  for (1..12) {
+    $k->{"F$_"} = 0xffbd + $_;
+  }
+  $k->{Insert} = 0xff63;
+  $k->{Home} = 0xff50;
+  $k->{End} = 0xff57;
+  $k->{PageUp} = 0xff55;
+  $k->{PageDown} = 0xff56;
+  $k->{kHome} = 0xff95;
+  $k->{kEnd} = 0xff9c;
+  $k->{kPageUp} = 0xff9a;
+  $k->{kPageDown} = 0xff9b;
+  $k->{kPlus} = 0xffab;
+  $k->{kMinus} = 0xffad;
+  $k->{kMultiply} = 0xffaa;
+  $k->{kDivide} = 0xffaf;
+  $k->{kEnter} = 0xff8d;
+  $k->{kPoint} = 0xffae;
+  for (0..9) {
+    $k->{"k$_"} = 0xffb0 + $_;
+  }
+
+  # Special bit flags for metakeys
+  $k->{"S-"} = MK_SHIFT;
+  $k->{"C-"} = MK_CONTROL;
+  $k->{"M-"} = MK_MOD4;
+  $k->{"A-"} = MK_ALT;
+  $self->{keynames} = $k;
+}
+
+sub define_functions {
+  my ($global_self) = @_;
+  my $functions = {};
+  $functions->{'+'} = sub {
+    my $self = shift;
+    my $result = 0;
+    for (@_) {
+      $result += $self->eval($_);
+    }
+    $result;
+  };
+  $functions->{'-'} = sub {
+    my $self = shift;
+    my $result = $self->eval(shift);
+    for (@_) {
+      $result -= $self->eval($_);
+    }
+    $result;
+  };
+  $functions->{'*'} = sub {
+    my $self = shift;
+    my $result = $self->eval(shift);
+    for (@_) {
+      $result *= $self->eval($_);
+    }
+    $result;
+  };
+  $functions->{'/'} = sub {
+    my $self = shift;
+    my $result = $self->eval(shift);
+    for (@_) {
+      $result /= $self->eval($_);
+    }
+    $result;
+  };
+  $functions->{'^'} = sub {
+    my ($self, $row) = @_;
+    if (!$row) {
+      ($row) = $global_self->logical_cursor;
+    }
+    my $text = $global_self->ROW_t($row);
+    my $ccol;
+    for ($ccol = 0;
+         ($ccol < $global_self->ncol) && (substr($text,$ccol,1) =~ /[\s\t\x{FFFF}]/);
+	 $ccol++)
+	 {}
+    $ccol = 0 if ($ccol >= $global_self->ncol);
+    $ccol;
+  };
+  $functions->{'$'} = sub {
+    my ($self, $row) = @_;
+    if (!$row) {
+      ($row) = $global_self->logical_cursor;
+    }
+    my $text = $global_self->ROW_t($row);
+    my $ccol;
+    for ($ccol = $global_self->ncol-1;
+	 ($ccol > 0) && (substr($text,$ccol,1) =~ /[\s\t\x{FFFF}]/);
+	 $ccol--)
+	 {}
+    $ccol;
+  };
+  $functions->{'MK_SHIFT'} = sub {MK_SHIFT};
+  $functions->{'MK_CONTROL'} = sub {MK_CONTROL};
+  $functions->{'MK_MOD4'} = sub {MK_MOD4};
+  $functions->{'MK_ALT'} = sub {MK_ALT};
+  $functions->{and} = sub {
+    my $self = shift;
+    my $rval = $self;
+    for (@_) {
+      last if !($rval &&= $self->eval($_));
+    }
+    $rval;
+  };
+  $functions->{apply} = sub {
+    my $self = shift;
+    my $name = $self->eval(shift);
+    my @args = @_;
+    if (my $func = $self->lookup_function($name)) {
+      $self->$func(@args);
+    }
+  };
+  $functions->{append} = sub {
+    my $self = shift;
+    my @rslt = ();
+    for (@_) { push @rslt, @{$self->eval($_)}; }
+    \@rslt;
+  };
+  $functions->{bind} = sub {
+    my ($self, $key, $cmd) = @_;
+    my $keysym = $global_self->translate_keyname($self->eval($key));
+    my @keymap = ($self, $cmd);
+    $global_self->{keymap}->{"$keysym"} = \@keymap;
+  };
+  $functions->{bit_and} = sub {
+    my $self = shift;
+    my $rslt = $self->eval(shift);
+    for (@_) {
+      $rslt &= $self->eval($_);
+    }
+    $rslt;
+  };
+  $functions->{bit_not} = sub {
+    my $self = shift;
+    ~($self->eval(shift));
+  };
+  $functions->{bit_or} = sub {
+    my $self = shift;
+    my $rslt = $self->eval(shift);
+    for (@_) {
+      $rslt |= $self->eval($_);
+    }
+    $rslt;
+  };
+  $functions->{bit_xor} = sub {
+    my $self = shift;
+    my $rslt = $self->eval(shift);
+    for (@_) {
+      $rslt ^= $self->eval($_);
+    }
+    $rslt;
+  };
+  $functions->{call} = sub {
+    my $self = shift;
+    my $func = $self->eval(shift);
+    $self->$func(@_) if $func;
+  };
+  $functions->{cmd_action} = sub {
+    my ($self,$action) = @_;
+    my $prev = $global_self->{cmd_action};
+    $global_self->{cmd_action} = $self->eval($action) if (defined($action));
+    $prev;
+  };
+  $functions->{cmd_bind} = sub {
+    my ($self, $key, $cmd) = @_;
+    my $keysym = $global_self->translate_keyname($self->eval($key));
+    my @keymap = ($self, $cmd);
+    $global_self->{cmd_keymap}->{"$keysym"} = \@keymap;
+  };
+  $functions->{cmd_insert_mode} = sub {
+    my ($self,$mode) = @_;
+    my $prev = $global_self->{cmd_insert_mode};
+    $global_self->{cmd_insert_mode} = $self->eval($mode) if (defined($mode));
+    $prev;
+  };
+  $functions->{cmd_mode} = sub {
+    my ($self,$mode) = @_;
+    my $prev = $global_self->{cmd_mode};
+    $global_self->{cmd_mode} = $self->eval($mode) if (defined($mode));
+    $prev;
+  };
+  $functions->{cmd_pos} = sub {
+    my ($self,$pos) = @_;
+    my $prev = $global_self->{cmd_pos};
+    $global_self->{cmd_pos} = $self->eval($pos) if (defined($pos));
+    $prev;
+  };
+  $functions->{cmd_prompt} = sub {
+    my ($self,$prompt) = @_;
+    my $prev = $global_self->{cmd_prompt};
+    $global_self->{cmd_prompt} = $self->eval($prompt) if (defined($prompt));
+    $prev;
+  };
+  $functions->{cmd_text} = sub {
+    my ($self,$text) = @_;
+    my $prev = $global_self->{cmd_text};
+    $global_self->{cmd_text} = $self->eval($text) if (defined($text));
+    $prev;
+  };
+  $functions->{context} = sub { shift; };
+  $functions->{cursor_column} = sub {
+    my $self = shift;
+    my ($crow, $ccol) = $global_self->logical_cursor;
+    $ccol;
+  };
+  $functions->{cursor_pos} = sub {
+    my $self = shift;
+    my $coord = $self->eval(shift);
+    my ($row, $col) = $coord ? @$coord : ();
+    my @pos;
+    if ((defined($row) && (($row < $global_self->top_row) ||
+        ($row >= $global_self->nrow))) ||
+        (defined($col) && (($col < 0) || ($col >= $global_self->ncol)))) {
+      $global_self->scr_bell;
+      @pos = ();
+    } else {
+      @pos = $global_self->logical_cursor;
+      if (defined($row)) {
+         my $vrow = $global_self->view_start;
+         my $max = $row - 1;
+         my $min = $row - ($global_self->nrow - 1);
+         if ($vrow > $max) {
+           $global_self->view_start($max);
+         } elsif ($vrow < $min) {
+           $global_self->view_start($min);
+         }
+         $global_self->logical_cursor($row, $col);
+      }
+    }
+    \@pos;
+  };
+  $functions->{cursor_row} = sub {
+    my $self = shift;
+    my ($crow, $ccol) = $global_self->logical_cursor;
+    $crow;
+  };
+  $functions->{def} = sub {
+    my ($self, $name, $args, @body) = @_;
+    $name = $self->eval($name);
+    $self->{functions}->{$name} = $self->make_func($args, @body);
+  };
+  $functions->{defin} = sub {
+    my ($self, $context, $name, $args, @body) = @_;
+    $context = $self->eval($context);
+    $name = $self->eval($name);
+    $context->{functions}->{$name} = $self->make_func($args, @body);
+  };
+  $functions->{each} = sub {
+    my $self = shift;
+    my ($ary, $lambda) = map {$self->eval($_)} @_;
+    for (@$ary) {
+      $self->$lambda($_);
+    }
+  };
+  $functions->{eq} = sub {
+    my $self = shift;
+    $self->eval(shift) eq $self->eval(shift);
+  };
+  $functions->{eval} = sub {
+    my $self = shift;
+    for (@_) {
+      $self->eval($self->eval($_));
+    }
+  };
+  $functions->{find_backward} = sub {
+    my $self = shift;
+    my ($pattern, $start) = map {$self->eval($_)} @_;
+    my ($row, $col);
+    my $maxcol = $global_self->ncol-1;
+    ($row, $col) = $start ? @$start : $global_self->logical_cursor;
+    if ($col > 0) {
+      $col--;
+    } else {
+      $row--;
+      $col = $maxcol;
+    }
+    my $min = $global_self->top_row;
+    my $rslt;
+    do {
+      my $text = $global_self->ROW_t($row);
+      $col = length $global_self->special_decode(substr($text, 0, $col));
+      $text = $global_self->special_decode($text);
+      if ($text =~ /\A.{0,$col}($pattern)/) {
+        my $pos = $-[1];
+        $col = length(expand(substr($text,0,$pos)));
+        my @r = ($row, $col);
+        $rslt = \@r;
+      } else {
+        $row--;
+        $col = $maxcol;
+      }
+    } until ($rslt || ($row < $min));
+    $rslt;
+  };
+  $functions->{find_forward} = sub {
+    my $self = shift;
+    my ($pattern, $start) = map {$self->eval($_)} @_;
+    my ($row, $col);
+    ($row, $col) = $start ? @$start : $global_self->logical_cursor;
+    $col++;
+    my $max = $global_self->nrow-1;
+    my $rslt;
+    do {
+      my $text = $global_self->ROW_t($row);
+      my $ptn;
+      if ($col) {
+        $col = length $global_self->special_decode(substr($text, 0, $col));
+        $ptn = "(?:.{$col})$pattern";
+      } else {
+        $ptn = $pattern;
+      }
+      $text = $global_self->special_decode($text);
+      if ($text =~ /$ptn/) {
+        my $pos = $-[0] + $col;
+        $col = length(expand(substr($text,0,$pos)));
+        my @r = ($row, $col);
+        $rslt = \@r;
+      } else {
+        $row++;
+        $col = 0;
+      }
+    } until ($rslt || ($row > $max));
+    $rslt;
+  };
+  $functions->{first_row} = sub { $global_self->top_row; };
+  $functions->{format} = sub {
+    my $self = shift;
+    my $fmt = $self->eval(shift);
+    my @args = map {$self->eval($_)} @_;
+    sprintf($fmt, @args);
+  };
+  $functions->{ge} = sub {
+    my $self = shift;
+    $self->eval(shift) ge $self->eval(shift);
+  };
+  $functions->{getdef} = sub {
+    my $self = shift;
+    my $name = $self->eval(shift);
+    $self->lookup_function($name);
+  };
+  $functions->{global_context} = sub { $global_self; };
+  $functions->{gt} = sub {
+    my $self = shift;
+    $self->eval(shift) gt $self->eval(shift);
+  };
+  $functions->{if} = sub {
+    my ($self, $cond, $iftrue, $iffalse) = @_;
+    ($self->eval($cond)) ? ($self->eval($iftrue)) : ($self->eval($iffalse))
+  };
+  $functions->{in} = sub {
+    my $self = shift;
+    my $context = $self->eval(shift);
+    my $rslt;
+    for (@_) {
+      $rslt = $context->eval($_);
+    }
+    $rslt;
+  };
+  $functions->{join} = sub {
+    my $self = shift;
+    my $delim = $self->eval(shift);
+    my @ops = ();
+    for (@_) {
+      my $op = $self->eval($_);
+      push @ops, ((ref($op) eq "ARRAY") ? @$op : $op);
+    }
+    join($delim, @ops);
+  };
+  $functions->{lambda} = sub {
+    my ($self, $args, @body) = @_;
+    $self->make_func($args, @body);
+  };
+  $functions->{last_column} = sub { $global_self->ncol-1; };
+  $functions->{last_row} = sub { $global_self->nrow - 1; }; 
+  $functions->{le} = sub {
+    my $self = shift;
+    $self->eval(shift) le $self->eval(shift);
+  };
+  $functions->{length} = sub {
+    my $self = shift;
+    my $what = $self->eval(shift);
+    ((ref($what) eq "ARRAY") ?
+      scalar @$what :
+      length $what) || 0;
+  };
+  $functions->{let} = sub {
+    my ($self, $args, @body) = @_;
+    my $scope = $self->make_func($args, @body);
+    $self->$scope();
+  };
+  $functions->{list} = sub {
+    my $self = shift;
+    my @array = map { $self->eval($_) } @_;
+    \@array;
+  };
+  $functions->{lt} = sub {
+    my $self = shift;
+    $self->eval(shift) lt $self->eval(shift);
+  };
+  $functions->{max} = sub {
+    my $self = shift;
+    my $result = $self->eval(shift);
+    for (@_) {
+      my $next = $self->eval($_);
+        $result = $next if ($next > $result);
+    }
+    $result;
+  };
+  $functions->{message} = sub {
+    my $self = shift;
+    $global_self->{message} = join(' ', map {$self->eval($_)} @_);
+  };
+  $functions->{min} = sub {
+    my $self = shift;
+    my $result = $self->eval(shift);
+    for (@_) {
+      my $next = $self->eval($_);
+        $result = $next if ($next < $result);
+    }
+    $result;
+  };
+  $functions->{move} = sub {
+    my $self = shift;
+    my $nrows = $self->eval(shift);
+    my $ncols = $self->eval(shift);
+    my ($crow,$ccol) = $global_self->logical_cursor;
+    if ($nrows) {
+      my $new_row = $crow + $nrows;
+      if ($new_row >= $global_self->nrow) {
+        $new_row = $global_self->nrow-1;
+      } elsif ($new_row < $global_self->top_row) {
+        $new_row = $global_self->top_row;
+      }
+      if ($new_row <= $global_self->view_start) {
+	$global_self->view_start($new_row-1);	# keep one above us
+      } elsif ($new_row >= ($global_self->view_start + $global_self->nrow)) {
+	$global_self->view_start($new_row - ($global_self->nrow - 1));
+      }
+      $crow = $new_row;
+    }
+    if ($ncols) {
+      my $new_col = $ccol + $ncols;
+      if ($new_col < 0) {
+        $new_col = 0;
+      } elsif ($new_col >= $global_self->ncol) {
+        $new_col = $global_self->ncol-1;
+      }
+      $ccol = $new_col;
+    }
+    $global_self->logical_cursor($crow, $ccol);
+    my @rslt = ($crow, $ccol);
+    \@rslt;
+  };
+  $functions->{ne} = sub {
+    my $self = shift;
+    $self->eval(shift) ne $self->eval(shift);
+  };
+  $functions->{nil} = sub {};
+  $functions->{not} = sub {
+    my $self = shift;
+    !($self->eval(shift));
+  };
+  $functions->{nth} = sub {
+    my ($self, $n, $list) = @_;
+    my @array = @{$self->eval($list)};
+    @array[$self->eval($n)];
+  };
+  $functions->{on} = sub {
+    my ($self, $event, $lambda) = @_;
+    $event = $self->eval($event);
+    my $prev = $global_self->{events}->{"$event"};
+    if (defined($lambda)) {
+      $global_self->{events}->{"$event"} = $self->eval($lambda);
+    } else {
+      $global_self->{events}->{"$event"} = ();
+    }
+    $prev;
+  };
+  $functions->{or} = sub {
+    my $self = shift;
+    my $rval;
+    for (@_) {
+      last if ($rval ||= $self->eval($_));
+    }
+    $rval;
+  };
+  $functions->{page_size} = sub { $global_self->nrow; };
+  $functions->{pipe} = sub {
+    my $self = shift;
+    my $what = $self->eval(shift);
+    my $where = join ' ', (map {$self->eval($_)} @_);
+    open(my $pipe, "|-:utf8", $where);
+    $pipe->autoflush(1);
+    print $pipe  $what;
+    close $pipe;
+  };
+  $functions->{posx} = sub {
+    my $self = shift;
+    my $col = $self->eval(shift);
+    my ($crow, $ccol) = $global_self->logical_cursor;
+    my $text;
+    if (($col >= 0) && ($col < $global_self->ncol)) {
+      $ccol = $col;
+    } else {
+      $global_self->scr_bell;
+    }
+    $global_self->logical_cursor($crow,$ccol);
+    my @rslt = ($crow,$ccol);
+    \@rslt;
+  };
+  $functions->{posy} = sub {
+    my $self = shift;
+    my $row = $self->eval(shift);
+    my @success = ($row);
+    if (($row < $global_self->top_row) ||
+        ($row >= $global_self->nrow)) {
+      $global_self->scr_bell;
+      @success = ();
+    } else {
+      my ($crow, $ccol) = $global_self->logical_cursor;
+      my $vrow = $global_self->view_start;
+      my $max = $row - 1;
+      my $min = $row - ($global_self->nrow - 1);
+      if ($vrow > $max) {
+        $global_self->view_start($max);
+      } elsif ($vrow < $min) {
+        $global_self->view_start($min);
+      }
+      $global_self->logical_cursor($row, $ccol);
+      @success = ($row,$ccol);
+    }
+    \@success;
+  };
+  $functions->{prev_context} = sub {
+    my $self = shift;
+    my $context = $self->eval(shift);
+    $context ? $context->{prev_context} : $self->{prev_context};
+  };
+  $functions->{progn} = sub {
+    my $self = shift;
+    my $result;
+    for (@_) {
+      $result = $self->eval($_);
+    }
+    $result;
+  };
+  $functions->{push_input} = sub {
+    my $self = shift;
+    for (@_) {
+      my $keys = $self->eval($_);
+      while ($keys =~ s/(<.+?>|.)//) {
+        my $keysym = $global_self->translate_keyname($1);
+	$global_self->eval_key($keysym) if $keysym;
+      }
+    }
+    \@_;
+  };
+  $functions->{push_key} = sub {
+    my $self = shift;
+    for (@_) {
+      $global_self->eval_key($self->eval($_));
+    }
+    \@_;
+  };
+  $functions->{push_repeat} = sub {
+    my $self = shift;
+    my $digit = $self->eval(shift);
+    $global_self->{repeat} = ($global_self->{repeat} * 10) + $digit;
+    $global_self->{repeat_touched} = 1;
+    $global_self->{repeat};
+  };
+  $functions->{quit} = sub { my $self = shift; $global_self->quit; };
+  $functions->{range} = sub {
+    my $self = shift;
+    my ($beg,$end) = map {$self->eval($_)} @_;
+    my @rng = ($beg..$end);
+    \@rng;
+  };
+  $functions->{repeat} = sub {
+    my ($self, $new) = @_;
+    my $old = $global_self->{repeat};
+    if ($new) {
+      $global_self->{repeat} = $self->eval($new);
+      $global_self->{repeat_touched} = 1;
+    }
+    $old;
+  };
+  $functions->{select} = sub {
+    my $self = shift;
+    my $urxvi = $global_self->{urxvi};
+    $urxvi->{select_mode} = '';
+    my @args = map {$self->eval($_)} @_;
+    if ((scalar @args) < 4) {
+      @args = ();
+      $global_self->selection_clear();
+    } else {
+      $global_self->selection_beg((@args[0], @args[1]));
+      $global_self->selection_end((@args[2], @args[3]));
+      $global_self->selection_make($global_self->{lastevent}->{time});
+    }
+    \@args;
+  };
+  $functions->{select_mode} = sub {
+    my $self = shift;
+    my $urxvi = $global_self->{urxvi};
+    my $old = $urxvi->{select_mode};
+    my $new = shift;
+    if (defined($new)) {
+      if ($new = $self->eval($new)) {
+	my @anchor = $global_self->logical_cursor;
+	$urxvi->{select_anchor} = \@anchor;
+      }
+      $urxvi->{select_mode} = $new;
+    }
+    $old;
+  };
+  $functions->{selection} = sub { $global_self->selection };
+  $functions->{source} = sub { my $self = shift; $global_self->source(map {$self->eval($_)} @_) };
+  $functions->{split} = sub {
+    my $self = shift;
+    my ($pattern, $string, $limit) = map {$self->eval($_)} @_;
+    my @array = split($pattern, $string, $limit);
+    \@array;
+  };
+  $functions->{substr} = sub {
+    my $self = shift;
+    my ($text, $start, $len) = map { $self->eval($_) } @_;
+    defined($len) ? substr($text, $start, $len) : substr($text, $start);
+  };
+  $functions->{text} = sub {
+    my $self = shift;
+    my ($start, $end) = map {$self->eval($_)} @_;
+    my ($brow, $bcol, $erow, $ecol);
+    if (defined($start)) {
+      ($brow, $bcol) = ((ref($start) eq "ARRAY") ? @$start : ($start, 0));
+      if (defined($end)) {
+        ($erow, $ecol) = ((ref($end) eq "ARRAY") ? @$end : ($end, $global_self->ncol-1));
+      } else {
+        ($erow, $ecol) = ($brow, $global_self->ncol-1);
+      }
+    } else {
+      ($brow, $bcol, $erow, $ecol) = ($global_self->top_row, 0, $global_self->nrow-1, $global_self->ncol-1);
+    }
+    my $text = '';
+    for ($brow..$erow) {
+      my $row = $_;
+      my $row_text = $global_self->ROW_t($row);
+      $row_text = substr($row_text, 0, $ecol+1) if ($row == $erow);
+      $row_text = substr($row_text, $bcol) if ($bcol && ($row == $brow));
+      $text .= $global_self->special_decode($row_text);
+      $text .= "\n" if ($row < $erow);
+    }
+    $text;
+  };
+  $functions->{view_start} = sub { $global_self->view_start; };
+  $global_self->{functions} = $functions;
+}
+
+sub make_func {
+  my ($defining, $args, @body) = @_;
+  my @params;
+  if ($args =~ s/^\((.*)\)$/\1/) {   # remove outer parentheses
+    @params = $defining->tokenize($args);
+  } else {
+    unshift @body, $args;            # treat as a body statement
+    @params = ();
+  }
+  my @param_init = ();
+  foreach my $param (@params) {
+    my @init;
+    if ($param =~ s/^\((.*)\)$/\1/) {
+      @init = $defining->tokenize($param);
+    } else {
+      @init = ($param);
+    }
+    push @param_init, \@init;
+  }
+  sub {
+    my @args = @_;
+    my $calling = shift @args;
+    my $context = {};
+    bless $context;
+    $context->{functions} = {};
+    $context->{prev_context} = $defining;
+    if ($calling->{debug}) {
+      $context->{debug} = $calling->{debug};
+      $context->{debug_indent} = $calling->{debug_indent};
+    }
+    foreach my $init (@param_init) {
+      my $arg = shift @args;
+      if (defined($arg)) {
+        $arg = $calling->eval($arg);    # evaluate argument in the caller's context
+      }
+      my ($name, $default) = @$init;
+      if (defined($default)) {
+        $default = $context->eval($default);
+        # evaluate default in the bound context
+      }
+      $context->{functions}->{$name} = (defined($arg) ?
+        sub { $arg } :
+        sub { $default });
+    }
+    my $rval;
+    for (@body) {
+      $rval = $context->eval($_);
+    }
+    $rval;
+  }
+}
+
+sub translate_keyname {
+  my ($self, $key) = @_;
+
+  if ($key =~ /^<(.+)>$/) {
+    $self->symbolic_keyname($1);
+  } else {
+    ord($key);
+  }
+}
+
+sub symbolic_keyname {
+  my ($self, $key) = @_;
+  if ($key =~ /([SCMA]-)(.+)/) {
+    $self->{keynames}->{"$1"} | $self->symbolic_keyname($2);
+  } else {
+    $self->{keynames}->{"$key"} || ord($key);
+  }
+}
+
+sub source {
+  my ($self, $file, $complain) = @_;
+  if (open(my $fh, "<", glob($file))) {
+    my $line = 0;
+    while (<$fh>) {
+      $line++;
+      chomp;
+      $self->eval($_, $file, $line, $fh);
+    }
+    close $fh;
+    $self;
+  } elsif ($complain) {
+    warn "urxvi: Cannot open: $file";
+    ()
+  }
+}
+
+sub eval {
+  my ($self, $cmd, $file, $line, $stream) = @_;
+  $file ||= 'Error';
+  $line ||= '';
+  $self->debug_indent;
+  my @tokens = $self->tokenize($cmd, $file, $line, $stream);
+  my $result;
+  $cmd = shift @tokens;
+  if (defined($cmd)) {
+    if ($cmd =~ /^\((.+)\)$/) {
+      $cmd = $self->eval($1);
+      if (!scalar(@tokens)) {    # just one big parenthesized expression, don't double-eval
+        $self->debug_out("\x{2514}\x{2500}\x{2500}\x{2500}> $result\n");
+        $self->debug_outdent;
+        return $cmd;
+      }
+    } 
+    if (my $func = $self->lookup_function($cmd)) {
+      $result = $func->($self, @tokens);
+    } else {
+      if ($cmd =~ /^(['"])(.*)\1$/) { 		# unquote, if quoted
+        $result = $2;
+      } elsif ($cmd =~ /^(\d+|0x[0-9A-Fa-f]+)$/) {  # number, or hex value
+        $result = eval $cmd;                    # we don't do this lightly
+      } else {
+        $result = $cmd;		# Not a function, just return the token
+      }
+    }
+  }
+  $self->debug_out("\x{2514}\x{2500}\x{2500}\x{2500}> $result\n");
+  $self->debug_outdent;
+  $result;
+}
+
+sub tokenize {
+   my ($self, $cmd, $file, $line, $stream) = @_;
+   my @tokens = ();
+   my $paren = 0;
+   my @curr_token = ();
+   do {
+     $self->debug_out("parse: $cmd\n");
+     while ($cmd =~ s/^\s*((['"]).*?\2|\(|\)|#|\S[^\s#()]*)//) {	# consume a token
+       my $token = $1;
+       last if ($token eq '#');			# comment
+       if ($token eq '(') {			# parenthesized expression
+         $paren++;
+       } elsif ($token eq ')') {
+         $paren--;
+       }
+       push @curr_token, $token;
+       if (!$paren) {
+         push @tokens, join(' ', @curr_token);
+         @curr_token = ();
+       }
+     }
+   } while (($paren > 0) && $stream && ($cmd = <$stream>) && (chomp $cmd) && $line++);
+   warn "urxvi: $file:$line Mismatched parentheses" if $paren;
+   @tokens;
+}
+
+sub lookup_function {
+  my ($self, $cmd) = @_;
+  my $prev;
+  $self->{functions}->{$cmd} ||
+    (($prev = $self->{prev_context}) ?
+      $prev->lookup_function($cmd) :
+      ());
+}
+
+sub debug_out {
+  my $self = shift;
+  print "urxvi:$self->{debug_indent}@_" if $self->{debug};
+}
+
+sub debug_indent {
+  my $self = shift;
+  if ($self->{debug}) {
+    $self->{debug_indent} .= (length($self->{debug_indent}) > 0) ? "\x{2502}" : ' ';
+  }
+}
+
+sub debug_outdent {
+  my $self = shift;
+  $self->{debug_indent} = substr($self->{debug_indent}, 0, -1) if $self->{debug};
+}
+
+# vim:set sw=3 sts=3 et:
