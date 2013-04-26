@@ -13,7 +13,7 @@ sub on_sel_grab
 
 sub paste {
     my ($self) = @_;
-    my $content = `/usr/bin/xsel -po` ;
+    my $content = `/usr/bin/xsel -bo` ;
     $self->tt_write ($content);
 }
 

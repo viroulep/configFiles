@@ -11,6 +11,11 @@ if [ "$NP" == "" ]; then
     NP=`mpc status 2>/dev/null | grep -v -e "ERROR" -e "volume" -e "\[playing\]"`
     if [ $? -ne 0 ]; then
         NP="Not Playing"
+    else
+        NP_Paused=`echo $NP | grep "\[paused\]"`
+        if [ "$NP_Paused" != "" ]; then
+            NP=`echo $NP | sed 's/\[paused\].*/\[paused\]/'`
+        fi
     fi
 fi
 echo $NP | sed 's/"/\\\"/g'
