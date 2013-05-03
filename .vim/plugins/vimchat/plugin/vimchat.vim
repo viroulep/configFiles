@@ -1148,7 +1148,7 @@ class VimChatScope:
         commands = """
         nnoremap <buffer> <silent> <Leader>ov :py VimChat.otrVerifyBuddy()<CR>
         nnoremap <buffer> <silent> <Leader>or :py VimChat.otrSmpRespond()<CR>
-        nnoremap <buffer> <Leader>on :py VimChat._signOn(
+        nnoremap <buffer> <silent> <Leader>on :py VimChat.signOn()<CR>
         nnoremap <buffer> <silent> <Leader>off :py VimChat.signOff()<CR>
         """
         vim.command(commands)
