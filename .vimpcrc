@@ -16,3 +16,5 @@ map J gt
 map K gT
 map p :play 1<Enter>
 map = +
+
+volume 75
