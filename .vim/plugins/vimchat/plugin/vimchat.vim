@@ -1134,6 +1134,7 @@ class VimChatScope:
         nnoremap <buffer> <silent> a :py VimChat.sendBufferShow()<CR>
         nnoremap <buffer> <silent> B :py VimChat.toggleBuddyList()<CR>
         nnoremap <buffer> <silent> q :py VimChat.deleteChat()<CR>
+        nnoremap <buffer> <silent> <Leader>l :py VimChat.openLogFromChat()<CR>
         au CursorMoved <buffer> exe 'py VimChat.clearNotify()'
         """
         vim.command(commands)

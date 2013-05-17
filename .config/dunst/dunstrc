@@ -222,9 +222,14 @@
 #    summary = *signed off*
 #    urgency = low
 #
+[mail]
+   appname = Icedove
+   format = ""
+
 [says]
    appname = vimchat
    urgency = critical
+   format = "Un nouveau message sur le chat"
 
 #[twitter]
 #    appname = Pidgin

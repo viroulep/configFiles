@@ -5,7 +5,7 @@ export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ulimit -c 0
 
 #Disable this sh*t
-xset -b &
+xset b off
 
 #Initialize sound
 amixer -q set Master 40% unmute

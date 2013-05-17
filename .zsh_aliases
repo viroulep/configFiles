@@ -76,3 +76,4 @@ alias dwb="dwb -r"
 
 #Change le titre de la fenêtre
 alias vimpc="wname vimpc; vimpc"
+alias mutt="wname mutt; mutt"

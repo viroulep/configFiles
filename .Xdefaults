@@ -1,5 +1,5 @@
 urxvt*font:             xft:Bitstream Vera Sans Mono:pixelsize=13
-urxvt*termName:         rxvt
+urxvt*termName:         rxvt-256color
 urxvt*background:       #000000
 urxvt*foreground:       #ffffff
 urxvt*scrollBar:        false
@@ -15,11 +15,11 @@ Xft*dpi:                96
 Xft*antialias:          true
 Xft*hinting:            full
 
-urxvt*background:       rgba:0000/0000/0000/cccc
+!urxvt*background:       rgba:0000/0000/0000/cccc
 
 urxvt.transparent:      false
 urxvt.tintColor:        black
-!urxvt.shading:          18 
+urxvt.shading:          18 
  
 urxvt*color0:           #000000
 urxvt*color1:           #9e1828
@@ -37,6 +37,24 @@ urxvt*color12:          #4186be
 urxvt*color13:          #cf9ebe
 urxvt*color14:          #71bebe
 urxvt*color15:          #ffffff
+
+!urxvt*color0:           #073642
+!urxvt*color1:           #dc322f
+!urxvt*color2:           #859900
+!urxvt*color3:           #b58900
+!urxvt*color4:           #268bd2
+!urxvt*color5:           #d33682
+!urxvt*color6:           #2aa198
+!urxvt*color7:           #eee8d5
+!urxvt*color8:           #002b36
+!urxvt*color9:           #cb4b16
+!urxvt*color10:          #586e75
+!urxvt*color11:          #657b83
+!urxvt*color12:          #839496
+!urxvt*color13:          #6c71c4
+!urxvt*color14:          #93a1a1
+!urxvt*color15:          #fdf6e3
+
 
 urxvt.url-picker.order: descending
 
