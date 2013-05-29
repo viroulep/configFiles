@@ -12,10 +12,12 @@ if [ "$NP" == "" ]; then
     if [ $? -ne 0 ]; then
         NP="Not Playing"
     else
-        NP_Paused=`echo $NP | grep "\[paused\]"`
+        NP_Paused=`echo "$NP" | grep "\[paused\]"`
         if [ "$NP_Paused" != "" ]; then
-            NP=`echo $NP | sed 's/\[paused\].*/\[paused\]/'`
+            NP=`echo "$NP" | grep -v "\[paused\]"`
+            NP="${NP} - [paused]"
+            #"sed 's/\[paused\].*/\\\[paused\\\]/'`
         fi
     fi
 fi
-echo $NP | sed 's/"/\\\"/g'
+echo "$NP" | sed 's/"/\\\"/g'
