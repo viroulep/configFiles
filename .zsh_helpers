@@ -72,6 +72,7 @@ _configure_displays() {
             echo "L'un des deux ecrans n'est pas présent."
         fi
     fi
+    xset -b
 }
 
 _xrandr_outputs() {
