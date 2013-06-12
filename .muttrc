@@ -115,9 +115,9 @@ bind pager \Cr redraw-screen
 
 bind index,pager \Cl list-reply
 
-macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
-macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
-macro index,pager gs "<change-folder>=Sent<enter>" "Go to sent"
+macro index,pager gi "<change-folder>=inbox<enter>" "Go to inbox"
+macro index,pager gd "<change-folder>=drafts<enter>" "Go to drafts"
+macro index,pager gs "<change-folder>=sent<enter>" "Go to sent"
 bind index,pager G noop
 macro index,pager G <shell-escape>'fetchmail'<enter> 'Run fetchmail'
 
