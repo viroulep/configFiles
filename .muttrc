@@ -1,0 +1,164 @@
+#mboxtype
+set mbox_type=Maildir
+
+#theme
+source $HOME/.mutt/mutt-theme-256
+
+
+
+###################################
+## Encryption (TODO)
+###################################
+
+source /etc/Muttrc.d/smime.rc
+set crypt_autosign = no
+set crypt_replyencrypt = no
+set crypt_replysign = no
+set crypt_replysignencrypted = no
+set smime_certificates="~/.smime/certificates"
+set smime_keys="~/.smime/keys"
+set smime_ca_location="/etc/ssl/certs/ca-certificates.crt"
+#PGP stuff
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+
+
+###################################
+## Smtp & Identity
+###################################
+
+set smtp_url = "smtp://viroulea@smtp.inria.fr:587/"
+set smtp_pass = ""
+set from = "philippe.virouleau@imag.fr"
+alternates "(philippe.virouleau@imag.fr)|(philippe.virouleau@inria.fr)|(philippe.44@gmail.com)"
+set realname = "Philippe Virouleau"
+set signature = "~/.mutt/sig"
+
+
+
+#TODO : folder hooks
+
+###################################
+## Basic SetUp
+###################################
+
+set editor = "vim"
+set folder="$HOME/Mail"
+set mask="!^(cur|new|tmp|\\.\\.)"
+set mbox="$HOME/Mail"
+set record="+sent"
+set postponed="+drafts"
+set spoolfile="$HOME/Mail/inbox"
+
+#Auto detect mailboxes
+mailboxes `boxes=""; for toto in $(ls ~/Mail); do if [ "$toto" != "cur" -a "$toto" != "tmp" -a "$toto" != "new" ]; then boxes=$boxes" ="$toto; fi done; echo $boxes`
+#mailboxes `echo -n "+ "; find ~/Mail -maxdepth 1 -type d -name "*" -printf "+'%f' "`
+
+unset mark_old
+set quit = 'ask-no'
+
+set pager_index_lines = 7
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set include
+set sort = 'reverse-threads'
+set sort_aux = 'last-date'
+#set sort_browser = 'reverse-date'
+set auto_tag = yes
+set locale = 'fr_FR.utf8'
+set index_format = "%4C %Z %{%d %b %Y} %-15.15F (%?l?%4l&%4c?) %s"
+
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+
+#Autoview attachments in mutt
+alternative_order text/plain text/html *
+auto_view text/html
+#auto_view image/*
+
+#Adress book
+#set query_command="goobook query '%s'"
+set query_command="abook --mutt-query '%s'"
+
+###################################
+## Keybindings
+###################################
+
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop 
+bind index \Cd half-down
+bind index \Cu half-up
+#bind index G imap-fetch-mail
+bind index h collapse-all
+bind index l collapse-thread
+bind index N search-opposite
+bind index L bottom-page
+bind index R group-reply
+bind index <esc>N toggle-new
+
+bind pager <esc>N mark-as-new
+bind pager N search-opposite
+bind pager R group-reply
+
+bind generic N search-opposite
+bind generic \Cu half-up
+bind generic \Cd half-down
+
+
+bind index,pager \Cr noop
+bind index \Cr refresh
+bind pager \Cr redraw-screen
+
+bind index,pager \Cl list-reply
+
+macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
+macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
+macro index,pager gs "<change-folder>=Sent<enter>" "Go to sent"
+bind index,pager G noop
+macro index,pager G <shell-escape>'fetchmail'<enter> 'Run fetchmail'
+
+###################################
+## Mailing list subscriptions
+###################################
+
+subscribe vcaensimagpromo2012@googlegroups.com
+subscribe tous-id@imag.fr
+subscribe .*-gra@inria.fr
+subscribe rp.info-agents@inria.fr
+subscribe diffusion-.*@inria.*.fr
+subscribe .*@lists.grid5000.fr
+subscribe inriatous@inria.fr
+
+###################################
+## Sidebar stuff
+###################################
+
+# set up the sidebar, default not visible
+set sidebar_width=20
+set sidebar_visible=no
+set sidebar_delim=' '
+set sidebar_sort=yes
+
+
+# color of folders with new mail
+color sidebar_new yellow default
+
+# bb toggles sidebar visibility
+macro index,pager bo "<sidebar-open>"
+bind index,pager J sidebar-next
+bind index,pager K sidebar-prev
+# Mario Holbe suggests:
+macro index bb '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager bb '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+
+# Remap bounce-message function to “B”
+bind index B bounce-message
+
+
+
+#auto-collapse thread at start-up
+folder-hook . "exec collapse-all"
