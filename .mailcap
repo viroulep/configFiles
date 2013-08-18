@@ -1,2 +1,3 @@
 text/html; dwb %s
 image/*; geeqie %s
+application/pdf; zathura %s

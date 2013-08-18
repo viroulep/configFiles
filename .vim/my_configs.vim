@@ -11,7 +11,7 @@ inoremap $é []<esc>i
 "inoremap $d {}<esc>i
 inoremap $& {<esc>o}<esc>O
 inoremap $1 <esc>o{<esc>o}<esc>O
-inoremap $' ''<esc>i
+inoremap $' {}<esc>i
 inoremap $" ""<esc>i
 inoremap $< <><esc>i
 

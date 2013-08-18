@@ -7,7 +7,7 @@ GREEN="%{"$'\e[1;38;5;34m'"%}"
 RESET="%{"$'\e[0m'"%}"
 
 #PS1 sexy ([heure]:path/to/directory)
-export PS1="[${YELLOW}%T${RESET}:${LIGHT_BLUE}%~${RESET}$ "
+export PS1="[${YELLOW}%T${RESET}]:${LIGHT_BLUE}%~${RESET}$ "
 #Je suis pas perdu (login@host)
 export RPS1_INS="(${PINK}%n${RESET}@${LIGHT_BLUE_INS}%M${RESET})"
 export RPS1_CMD="(${PINK}%n${RESET}@${GREEN}%M${RESET})"
