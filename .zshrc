@@ -45,6 +45,7 @@ fignore=(.ali .o .toc .aux)
 #La speciale Ensimag :
 mesg n
 xset b off
+setopt no_BEEP
 
 #Variables globales
 source $HOME/.zsh_global

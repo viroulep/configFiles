@@ -58,6 +58,12 @@ alias -s h="vim"
 alias -s c="vim"
 alias -s cpp="vim"
 
+#Easy pipe
+alias -g T="| tail"
+alias -g G="| grep"
+alias -g H="| head"
+alias -g L="| less"
+
 #Vim stuff
 alias vim="vim -i NONE"
 alias v="vim"

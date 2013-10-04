@@ -50,3 +50,12 @@ noremap <leader>L zO
 noremap <leader>h zc
 noremap <leader>H zC
 
+"Refresh all buffers
+func! RefreshAllBuffers()
+    set noconfirm
+    bufdo e!
+    set confirm
+endfunc
+
+map <leader>E :call RefreshAllBuffers()<cr>
+

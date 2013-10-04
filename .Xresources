@@ -100,6 +100,7 @@ urxvt.tintColor:        black
 urxvt.shading:          18 
 urxvt*fading:           40
 urxvt*fadeColor:        p_background
+!urxvt*fadeColor:        #2f0626
 urxvt*cursorColor:              p_foreground
 urxvt*pointerColorBackground:   p_foreground
 urxvt*pointerColorForeground:   p_foreground
