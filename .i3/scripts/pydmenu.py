@@ -53,7 +53,7 @@ def dmenu(items,
     font=None,
     normal_background='black',
     normal_foreground='white',
-    selected_background=None,
+    selected_background='#772865',
     selected_foreground=None):
     """
     Open a dmenu to select an item
