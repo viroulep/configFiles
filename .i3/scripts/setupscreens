@@ -1,0 +1,40 @@
+#!/bin/zsh
+if [ "$#" -eq "0" ]; then
+    echo "Liste des ecrans disponibles :"
+    xrandr | grep "connected" | sed 's/\([A-Z]\+[-]\?[0-9]*\) \(\(dis\)\?connected\).*/\1 (\2)/'
+elif [ "$#" -eq "1" ]; then
+    OUTPUT="$1" 
+    xrandr | grep $OUTPUT | grep " connected "
+    PRESENT=$?
+    if [ $PRESENT -eq 0 ]; then
+        xrandr --output $OUTPUT --auto
+        xrandr | grep " conne" | sed 's/ conne.*//' | while read tosetoff; do
+            if [ "$tosetoff" != "$OUTPUT" ]; then
+                xrandr --output $tosetoff --off
+            fi
+        done
+    else
+        echo "L'écran n'est pas présent."
+    fi
+
+elif [ "$#" -ne "2" ]; then
+    echo "Usage : ./script\n\tListe les écrans"
+    echo "Usage : ./script ecran_interne ecran_externe\n\tConfigure l'affichage des écrans"
+    echo "Usage : ./script ecran\n\tConfigure l'affichage de l'écran et éteint les autres"
+else
+    EXTERNAL_OUTPUT="$2"
+    INTERNAL_OUTPUT="$1" 
+
+    xrandr | grep $EXTERNAL_OUTPUT | grep " connected "
+    EXTERN_PRESENT=$?
+    xrandr | grep $INTERNAL_OUTPUT | grep " connected "
+    INTERN_PRESENT=$?
+    if [ $EXTERN_PRESENT -eq 0 -a $INTERN_PRESENT -eq 0 ]; then
+        xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --left-of $INTERNAL_OUTPUT
+        echo "Configuration terminée"
+    else
+        echo "L'un des deux ecrans n'est pas présent."
+    fi
+fi
+xset -b
+

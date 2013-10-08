@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$HOME/.i3/:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.i3/scripts:/usr/local/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 #No core files

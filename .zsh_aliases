@@ -12,9 +12,6 @@ alias batinfo='_display_power_status'
 #Infos des batteries
 alias suspendtoram='_do_suspend_ram'
 
-#Configuration auto des écrans
-alias setupscreens='_configure_displays'
-
 
 #Screen saver
 alias screensaver='_screensaver'
