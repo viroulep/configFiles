@@ -8,7 +8,7 @@ termprefix='urxvt -e '
 
 choices ={
         'lp(lock input)':'xtrlock',
-        'suspend':'setupscreens LVDS1;i3-msg workspace 10;i3lock -c 111111;sudo pm-suspend-hybrid;',
+        'suspend':'setupscreens LVDS1;i3-msg workspace 10;i3lock -c 111111;sudo pm-suspend;',
         'shutdown':'gksudo "shutdown -h now"',
         'lock(lock X)':'i3-msg workspace 10; i3lock -c 111111',
         'reboot':'gksudo "shutdown -r now"'

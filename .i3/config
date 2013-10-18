@@ -153,8 +153,8 @@ new_float pixel 1
 hide_edge_borders none
 
 #Workspaces++ (see scripts)
-bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b`"
-bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b`"
+bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b -p 'switch to' -nb black -nf white -sb '#772865'`"
+bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b -p 'move to:' -nb black -nf white -sb '#772865'`"
 
 #Chromium setup
 assign [class="^Chromium"] IM
@@ -175,8 +175,8 @@ bindsym Control+Mod1+l exec dmenu_power.py
 bindsym oe workspace 1
 
 #Workspace navigation
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+#bindsym $mod+Tab workspace next
+#bindsym $mod+Shift+Tab workspace prev
 bindsym Mod4+Tab workspace back_and_forth
 
 #Brightness keybindings

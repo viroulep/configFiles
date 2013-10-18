@@ -24,6 +24,9 @@ nnoremap " `
 
 nmap <leader>' `.
 
+nmap <F6>l gt
+nmap <F6>h gT
+
 nnoremap <leader>> :vertical resize +5<cr>
 nnoremap <leader>< :vertical resize -5<cr>
 
@@ -32,12 +35,12 @@ nnoremap <leader>p "+p
 vnoremap <leader>p "+p
 
 "Copy to system clipboard
-nnoremap <leader>y "+y
+nnoremap <leader>yy "+yy
 vnoremap <leader>y "+y
 
 "Delete to system clipboard
 nnoremap <leader>dd "+dd
-vnoremap <leader>dd "+dd
+vnoremap <leader>d "+d
 
 "Quit rapide
 nnoremap <leader>q :qa<cr>
