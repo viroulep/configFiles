@@ -62,3 +62,6 @@ endfunc
 
 map <leader>E :call RefreshAllBuffers()<cr>
 
+"In my urxvt config, mod4+key is esc+bell + key
+nmap h gT
+nmap l gt

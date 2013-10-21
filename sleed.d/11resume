@@ -1,0 +1,17 @@
+#!/bin/bash
+case $1 in
+    hibernate)
+        echo "Hey guy, we are going to suspend to disk!"
+        ;;
+    suspend)
+        echo "Oh, this time we're doing a suspend to RAM. Cool!"
+        ;;
+    thaw|resume)
+        echo "oh, suspend is over, we are in $1 phase..."
+            # Set Display #
+    DISPLAY=:0.0 ; export DISPLAY
+    /bin/su fifi -c "sleep 3; [ -x .xresume ] && ./.xresume" &
+        ;;
+    *)  echo "somebody is calling me totally wrong."
+        ;;
+esac

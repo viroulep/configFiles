@@ -152,3 +152,8 @@ urxvt.keysym.Control-Right:  \033[1;5C
 !C-,
 urxvt.keysym.Control-0x2c:	    perl:urxvi
 urxvt.keysym.Control-f:     perl:url-picker
+
+#mod4-key sends esc-bell-key
+#todo: do it for all printable chars
+urxvt.keysym.Mod4-h: \033\007h
+urxvt.keysym.Mod4-l: \033\007l
