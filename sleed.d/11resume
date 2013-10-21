@@ -10,7 +10,7 @@ case $1 in
         echo "oh, suspend is over, we are in $1 phase..."
             # Set Display #
     DISPLAY=:0.0 ; export DISPLAY
-    /bin/su fifi -c "sleep 3; [ -x .xresume ] && ./.xresume" &
+    /bin/su fifi -c "sleep 3; [ -x /home/fifi/.xresume ] && /home/fifi/.xresume" &
         ;;
     *)  echo "somebody is calling me totally wrong."
         ;;
