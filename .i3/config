@@ -15,7 +15,7 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+A kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -nb black -nf white -sb '#772865'
 
 # change focus
 # (remap to vim's keybindings)
