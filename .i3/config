@@ -166,13 +166,13 @@ bindsym $mod+x move workspace to output right
 focus_follows_mouse no
 
 #Switch to previous workspace when switching to current workspace
-workspace_auto_back_and_forth yes
+#workspace_auto_back_and_forth yes
 
 #Switch workspace and lock screen
 bindsym Control+Mod1+l exec dmenu_power.py
 
 #Usually keep several terminals on workspace 1, kind of quake mode binding
-bindsym oe workspace 1
+#bindsym oe workspace 1
 
 #Workspace navigation
 #bindsym $mod+Tab workspace next

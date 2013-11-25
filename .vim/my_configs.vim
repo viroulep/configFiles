@@ -62,6 +62,10 @@ endfunc
 
 map <leader>E :call RefreshAllBuffers()<cr>
 
+"Red line @80 chars
+set cc=80
+hi ColorColumn ctermbg=153
+
 "In my urxvt config, mod4+key is esc+bell + key
 nmap h gT
 nmap l gt
