@@ -66,6 +66,13 @@ map <leader>E :call RefreshAllBuffers()<cr>
 set cc=80
 hi ColorColumn ctermbg=153
 
+"Creates a group ExtraWhitespace
+hi ExtraWhitespace ctermbg=red guibg=red
+"Highlight trailing whitespaces
+autocmd Syntax * syn match ExtraWhitespace /\s\+\%#\@<!$/
+
 "In my urxvt config, mod4+key is esc+bell + key
 nmap h gT
 nmap l gt
+nmap H <C-w>H
+nmap L <C-w>L

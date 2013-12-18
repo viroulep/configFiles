@@ -104,7 +104,7 @@ urxvt*fadeColor:        p_background
 urxvt*cursorColor:              p_foreground
 urxvt*pointerColorBackground:   p_foreground
 urxvt*pointerColorForeground:   p_foreground
- 
+
 urxvt*color0:           #000000
 urxvt*color1:           #9e1828
 urxvt*color2:           #aece92
@@ -153,7 +153,9 @@ urxvt.keysym.Control-Right:  \033[1;5C
 urxvt.keysym.Control-0x2c:	    perl:urxvi
 urxvt.keysym.Control-f:     perl:url-picker
 
-#mod4-key sends esc-bell-key
-#todo: do it for all printable chars
+!#mod4-key sends esc-bell-key
+!#todo: do it for all printable chars
 urxvt.keysym.Mod4-h: \033\007h
 urxvt.keysym.Mod4-l: \033\007l
+urxvt.keysym.Mod4-H: \033\007H
+urxvt.keysym.Mod4-L: \033\007L

@@ -48,7 +48,9 @@ set mbox="$HOME/Mail"
 set record="+sent"
 set postponed="+drafts"
 set spoolfile="$HOME/Mail/inbox"
-set print_command="muttprint -P A4 -p TO_FILE:/tmp/$USER.ps && zathura /tmp/$USER.ps"
+#TODO: debug muttprint
+#set print_command="muttprint -P A4 -p TO_FILE:/tmp/$USER.ps && zathura /tmp/$USER.ps"
+set print_command="lpr -P PDF && zathura ~/PDF/_stdin_.pdf"
 
 #Auto detect mailboxes
 mailboxes `boxes=""; for toto in $(ls ~/Mail); do if [ "$toto" != "cur" -a "$toto" != "tmp" -a "$toto" != "new" ]; then boxes=$boxes" ="$toto; fi done; echo $boxes`
