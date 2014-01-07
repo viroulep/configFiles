@@ -7,11 +7,11 @@ termprefix='urxvt -e '
 
 
 choices ={
-        'lp(lock input)':'xtrlock',
-        'suspend':'setupscreens LVDS1;i3-msg workspace 10;i3lock -c 111111;sudo pm-suspend;',
-        'shutdown':'gksudo "shutdown -h now"',
-        'lock(lock X)':'i3-msg workspace 10; i3lock -d -c 111111',
-        'reboot':'gksudo "shutdown -r now"'
+        'lp(lock input)\n':'xtrlock',
+        'suspend\n':'setupscreens LVDS1;i3-msg workspace 10;i3lock -c 111111;sudo pm-suspend;',
+        'shutdown\n':'gksudo "shutdown -h now"',
+        'lock(lock X)\n':'i3-msg workspace 10; i3lock -d -c 111111',
+        'reboot\n':'gksudo "shutdown -r now"'
         }
 
 selection = dmenu(sorted(choices.keys()),  prompt="power management:")

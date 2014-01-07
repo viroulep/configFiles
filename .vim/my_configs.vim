@@ -64,7 +64,7 @@ map <leader>E :call RefreshAllBuffers()<cr>
 
 "Red line @80 chars
 set cc=80
-hi ColorColumn ctermbg=153
+hi ColorColumn ctermbg=153 ctermfg=black
 
 "Creates a group ExtraWhitespace
 hi ExtraWhitespace ctermbg=red guibg=red
