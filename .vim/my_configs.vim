@@ -7,11 +7,11 @@ set nu
 
 " Map auto complete of (, ", ', [
 inoremap $( ()<esc>i
-inoremap $é []<esc>i
+inoremap $[ []<esc>i
 "inoremap $d {}<esc>i
-inoremap $& {<esc>o}<esc>O
-inoremap $1 <esc>o{<esc>o}<esc>O
-inoremap $' {}<esc>i
+inoremap ${ {<esc>o}<esc>O
+inoremap $} <esc>o{<esc>o}<esc>O
+inoremap $' ''<esc>i
 inoremap $" ""<esc>i
 inoremap $< <><esc>i
 
@@ -76,3 +76,6 @@ nmap h gT
 nmap l gt
 nmap H <C-w>H
 nmap L <C-w>L
+
+"Hide .o in nerd tree
+let NERDTreeIgnore=['\.o$']

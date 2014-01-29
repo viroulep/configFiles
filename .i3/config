@@ -192,7 +192,7 @@ bindsym $mod+equal exec /usr/bin/xbacklight -dec 5
 bindsym $mod+Shift+U move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+p scratchpad show
+bindsym $mod+p [title="^((?!Spot|vimpc).)*$"] scratchpad show
 
 # Show all scratchpaded windows
 bindsym $mod+Shift+P [title=".*"] scratchpad show
