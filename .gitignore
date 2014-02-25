@@ -9,6 +9,7 @@
 .cmus/playlist.pl
 .cmus/search-history
 *~
+*.pyc
 .abook/addressbook
 .mutt/cache
 .mutt/certificates

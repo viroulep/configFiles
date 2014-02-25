@@ -24,9 +24,6 @@ nnoremap " `
 
 nmap <leader>' `.
 
-nmap <F6>l gt
-nmap <F6>h gT
-
 nnoremap <leader>> :vertical resize +5<cr>
 nnoremap <leader>< :vertical resize -5<cr>
 
@@ -79,3 +76,6 @@ nmap L <C-w>L
 
 "Hide .o in nerd tree
 let NERDTreeIgnore=['\.o$']
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_default_global_conf.py'
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>

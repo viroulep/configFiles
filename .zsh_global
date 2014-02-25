@@ -37,3 +37,6 @@ export PATH=/usr/local/bin:/usr/sbin:$PATH
 export PATH=$JAVA_HOME/bin:$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
 export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=$HOME/local/include:$CPLUS_INCLUDE_PATH
+
+#Python path for YCM
+export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
