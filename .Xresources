@@ -153,6 +153,16 @@ urxvt.keysym.Control-Right:  \033[1;5C
 urxvt.keysym.Control-0x2c:	    perl:urxvi
 urxvt.keysym.Control-f:     perl:url-picker
 
+!Dynamic resizing
+urxvt.keysym.C-F1:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=9\007
+urxvt.keysym.C-F2:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=11\007
+urxvt.keysym.C-F3:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=15\007
+urxvt.keysym.C-F4:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=17\007
+urxvt.keysym.C-F5:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=18\007
+urxvt.keysym.C-F6:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=20\007
+urxvt.keysym.C-F7:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=22\007
+urxvt.keysym.C-equal:command:\033]710;xft:Bitstream Vera Sans Mono:pixelsize=13\007
+
 !#mod4-key sends esc-bell-key
 !#todo: do it for all printable chars
 urxvt.keysym.Mod4-h: \033\007h
