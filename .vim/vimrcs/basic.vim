@@ -1,26 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
+" Inspired from :
 "       Amir Salihefendic
 "       http://amix.dk - amix@amix.dk
 "
-" Version: 
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post: 
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version: 
-"       http://amix.dk/vim/vimrc.txt
 "
 " Sections:
 "    -> General
@@ -46,10 +28,6 @@
 " Sets how many lines of history VIM has to remember
 set history=700
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -60,6 +38,23 @@ let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
+
+"Quit rapide
+nnoremap <leader>q :qa<cr>
+nnoremap <leader>ss :mksession!<cr>
+
+
+"Map jj sur echap, plus confortable
+inoremap jj <esc>
+
+"` pas assez accessible...
+onoremap " `
+nnoremap " `
+
+nmap <leader>' `.
+
+nnoremap <leader>> :vertical resize +5<cr>
+nnoremap <leader>< :vertical resize -5<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -95,17 +90,17 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -124,33 +119,38 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Show line numbers
+set nu
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
+
 
 try
-    colorscheme desert
+    set t_Co=256
+    colorscheme peaksea
 catch
 endtry
 
 set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
+
+"Red line @80 chars
+set cc=80
+hi ColorColumn ctermbg=153 ctermfg=black
+
+"Creates a group ExtraWhitespace
+hi ExtraWhitespace ctermbg=red guibg=red
+"Highlight trailing whitespaces
+autocmd Syntax * syn match ExtraWhitespace /\s\+\%#\@<!$/
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,6 +183,13 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+
+"Folding
+set fdm=syntax
+noremap <leader>l zo
+noremap <leader>L zO
+noremap <leader>h zc
+noremap <leader>H zC
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -226,6 +233,12 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
 map <leader>t<leader> :tabnext 
 
+"In my urxvt config, mod4+key is esc+bell + key
+nmap h gT
+nmap l gt
+nmap H <C-w>H
+nmap L <C-w>L
+
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -265,19 +278,6 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -285,7 +285,30 @@ func! DeleteTrailingWS()
   exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+"Paste system clipboard
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+"Copy to system clipboard
+nnoremap <leader>yy "+yy
+vnoremap <leader>y "+y
+
+"Delete to system clipboard
+nnoremap <leader>dd "+dd
+vnoremap <leader>d "+d
+
+map <leader>E :call RefreshAllBuffers()<cr>
+
+" Map auto complete of (, ", ', [
+inoremap $( ()<esc>i
+inoremap $[ []<esc>i
+"inoremap $d {}<esc>i
+inoremap ${ {<esc>o}<esc>O
+inoremap $} <esc>o{<esc>o}<esc>O
+inoremap $' ''<esc>i
+inoremap $" ""<esc>i
+inoremap $< <><esc>i
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -334,27 +357,13 @@ map <leader>N :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scripbble (note : map to quit in my config)
-"map <leader>q :e ~/buffer<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -407,3 +416,11 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+
+"Refresh all buffers
+func! RefreshAllBuffers()
+    set noconfirm
+    bufdo e!
+    set confirm
+endfunc
+
