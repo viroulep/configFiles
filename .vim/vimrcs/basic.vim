@@ -106,7 +106,7 @@ set lazyredraw
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -230,8 +230,8 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 "In my urxvt config, mod4+key is esc+bell + key
 nmap h gT
@@ -246,7 +246,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -347,13 +347,14 @@ map <leader>N :cp<cr>
 " => Spell checking (note : overridden by my configs)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
-"map <leader>ss :setlocal spell!<cr>
+set spelllang=fr
+map <leader>s<space> :setlocal spell!<cr>
 
 " Shortcuts using <leader>
-"map <leader>sn ]s
-"map <leader>sp [s
-"map <leader>sa zg
-"map <leader>s? z=
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s<leader> z=
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
