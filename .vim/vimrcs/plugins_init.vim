@@ -13,6 +13,7 @@ Bundle 'vim-scripts/YankRing.vim'
 Bundle 'viroulep/peaksea'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'bling/vim-airline'
+Bundle 'airblade/vim-gitgutter'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 "Bundle 'vim-powerline'

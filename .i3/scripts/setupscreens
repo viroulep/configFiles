@@ -3,7 +3,7 @@ if [ "$#" -eq "0" ]; then
     echo "Liste des ecrans disponibles :"
     xrandr | grep "connected" | sed 's/\([A-Z]\+[-]\?[0-9]*\) \(\(dis\)\?connected\).*/\1 (\2)/'
 elif [ "$#" -eq "1" ]; then
-    OUTPUT="$1" 
+    OUTPUT="$1"
     xrandr | grep $OUTPUT | grep " connected "
     PRESENT=$?
     if [ $PRESENT -eq 0 ]; then
@@ -23,7 +23,7 @@ elif [ "$#" -ne "2" ]; then
     echo "Usage : ./script ecran\n\tConfigure l'affichage de l'écran et éteint les autres"
 else
     EXTERNAL_OUTPUT="$2"
-    INTERNAL_OUTPUT="$1" 
+    INTERNAL_OUTPUT="$1"
 
     xrandr | grep $EXTERNAL_OUTPUT | grep " connected "
     EXTERN_PRESENT=$?

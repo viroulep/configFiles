@@ -21,8 +21,7 @@ endif
 """"""""""""""""""""""""""""""
 " => CTRL-P
 """"""""""""""""""""""""""""""
-let g:ctrlp_working_path_mode = 0
-
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_map = '<c-f>'
 map <leader>b :CtrlPBuffer<cr>
 map <leader>m :CtrlPMRUFiles<cr>

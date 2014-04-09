@@ -84,4 +84,9 @@ alias mutt="wname mutt; mutt"
 #Apt stuff
 alias agi="sudo apt-get install"
 alias agu="sudo apt-get update"
+alias agug="sudo apt-get upgrade"
+alias agdu="sudo apt-get dist-upgrade"
 alias acs="apt-cache search"
+
+#Wifi
+alias wifi="wicd-curses"

@@ -162,3 +162,6 @@ hint-offset-left=0
 enable-ipc=true
 block-insecure-content=false
 adblocker-element-hider=true
+tabbar-height=0
+statusbar-height=0
+favicon-size=0
