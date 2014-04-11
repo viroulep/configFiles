@@ -22,6 +22,15 @@ _run_vim() {
 vim -S $1
 }
 
+_generate_random_number() {
+    if [ $# -eq 1 ]; then
+        RMAX=$1
+    else
+        RMAX=6
+    fi
+    echo "$(od -An -N4 -tu4 /dev/urandom) % ${RMAX} + 1" | bc
+}
+
 _do_suspend_ram() {
     #sudo pour avoir le prompt du password avant le lock
     sudo sh -c "echo \"Mise en veille et verrouillage de l'écran.\"";

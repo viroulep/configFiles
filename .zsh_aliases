@@ -90,3 +90,6 @@ alias acs="apt-cache search"
 
 #Wifi
 alias wifi="wicd-curses"
+
+#Random
+alias random="_generate_random_number"
