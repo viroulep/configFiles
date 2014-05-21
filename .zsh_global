@@ -23,21 +23,21 @@ export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
 export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline 
 
 #Probablement inutile
-export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
-export CBLAS_CPPFLAGS="-I/usr/include/atlas"
-export BOOST_INSTALL=$HOME/local
+#export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
+#export CBLAS_CPPFLAGS="-I/usr/include/atlas"
+#export BOOST_INSTALL=$HOME/local
 export JAVA_HOME=/usr/lib/jvm/java-oracle
 
 #Ajoute plein d'endroits sympas au path du linker
-export LD_LIBRARY_PATH=$BOOST_INSTALL:$BOOST_INSTALL/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
 
 #Ajoute plein d'endroits sympas au path
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
-export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=$HOME/local/include:$CPLUS_INCLUDE_PATH
+#export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
+#export CPLUS_INCLUDE_PATH=$HOME/local/include:$CPLUS_INCLUDE_PATH
 
 #Python path for YCM
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
