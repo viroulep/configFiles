@@ -17,7 +17,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 "Bundle 'vim-powerline'
 Bundle 'bling/vim-markdown'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
 
 
