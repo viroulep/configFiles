@@ -205,8 +205,8 @@ exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png
 #Start NetworkManager applet
 #exec nm-applet
 #Keybinding for PulseAudio
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 -- '+5%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 '+5%'
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
 client.focused #4a193f #772865 #ffffff #772865

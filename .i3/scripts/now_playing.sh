@@ -5,6 +5,7 @@ if [ "$NP" == "" ]; then
     NP_TITLE=`dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:'org.mpris.MediaPlayer2.Player' string:'Metadata' 2>/dev/null|egrep -A 1 "title"|egrep -v "title"|cut -b 44-|cut -d '"' -f 1|egrep -v ^$`
     if [ $? -eq 0 ]; then
         NP="$NP_ARTIST - $NP_TITLE"
+        echo $NP 2>/dev/null > $HOME/now-playing-spotify
     fi
 fi
 if [ "$NP" == "" ]; then

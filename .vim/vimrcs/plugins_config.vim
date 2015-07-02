@@ -54,3 +54,29 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/ycm_default_global_conf.py'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_enable_diagnostic_signs = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""
+" => Pymod
+"""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>d :RopeGotoDefinition
+
+let g:pymode = 1
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+let g:pymode_folding = 1
+let g:pymode_lint = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe', 'pylint', 'pep257']
+let g:pymode_lint_ignore = ""
+let g:pymode_lint_sort = ['E', 'C', 'I']
+let g:pymode_lint_unmodified = 1
+let g:pymode_rope = 0
+let g:pymode_rope_show_doc_bind = 'K'
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_rope_lookup_project = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_slow_sync = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_lint_mccabe_complexity = 8
