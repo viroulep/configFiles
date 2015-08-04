@@ -200,6 +200,8 @@ bindsym $mod+Shift+P [title=".*"] scratchpad show
 # Show spot.
 bindsym $mod+u [title="Spot|vimpc"] scratchpad show
 
+for_window [class="Binding of Isaac.*"] floating enable
+
 #Set wallpaper
 exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png
 #Start NetworkManager applet

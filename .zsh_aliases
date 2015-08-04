@@ -74,9 +74,6 @@ alias apt-get="nocorrect apt-get"
 alias sudo="nocorrect sudo"
 alias man="nocorrect man"
 
-#Restore la derniere session si sauvegardée
-alias dwb="dwb -r"
-
 #Change le titre de la fenêtre
 alias vimpc="wname vimpc; vimpc"
 alias mutt="wname mutt; mutt"
