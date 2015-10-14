@@ -193,23 +193,26 @@ bindsym $mod+equal exec /usr/bin/xbacklight -dec 5
 bindsym $mod+Shift+U move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+p [title="^((?!Spot|vimpc).)*$"] scratchpad show
+bindsym $mod+p [title="^((?!Spot|mpc).)*$"] [class="^((?!Spot|mpc).)*$"] scratchpad show
 
 # Show all scratchpaded windows
 bindsym $mod+Shift+P [title=".*"] scratchpad show
 
 # Show spot.
-bindsym $mod+u [title="Spot|vimpc"] scratchpad show
+bindsym $mod+u [class="Spot|mpc"] scratchpad show
 
 for_window [class="Binding of Isaac.*"] floating enable
+for_window [class="item_tracker.*"] floating enable
+for_window [class="Llanfair"] floating enable
+for_window [class="Xchat"] floating enable
 
 #Set wallpaper
 exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png
 #Start NetworkManager applet
 #exec nm-applet
 #Keybinding for PulseAudio
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 '-5%'
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 '+5%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 1 '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 1 '+5%'
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
 client.focused #4a193f #772865 #ffffff #772865

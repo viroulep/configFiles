@@ -30,6 +30,7 @@ export JAVA_HOME=/usr/lib/jvm/java-oracle
 
 #Ajoute plein d'endroits sympas au path du linker
 export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
 
 #Ajoute plein d'endroits sympas au path

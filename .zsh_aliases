@@ -76,6 +76,7 @@ alias man="nocorrect man"
 
 #Change le titre de la fenêtre
 alias vimpc="wname vimpc; vimpc"
+alias mpccli="wname mpccli; xdotool search --name \"mpccli\" set_window --class \"mpc\"; ncmpcpp"
 alias mutt="wname mutt; mutt"
 
 #Apt stuff

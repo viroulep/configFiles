@@ -30,7 +30,7 @@ else
     xrandr | grep $INTERNAL_OUTPUT | grep " connected "
     INTERN_PRESENT=$?
     if [ $EXTERN_PRESENT -eq 0 -a $INTERN_PRESENT -eq 0 ]; then
-        xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --left-of $INTERNAL_OUTPUT
+        xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT
         echo "Configuration terminée"
     else
         echo "L'un des deux ecrans n'est pas présent."
