@@ -157,7 +157,8 @@ bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b -p 'switch to'
 bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b -p 'move to:' -nb black -nf white -sb '#772865'`"
 
 #Chromium setup
-assign [class="^Chromium"] IM
+assign [class="^Chromium"] web
+assign [class="Xchat"] IM
 
 #Move workspace to next output
 bindsym $mod+x move workspace to output right

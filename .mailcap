@@ -1,3 +1,3 @@
-text/html; dwb %s
+text/html; chromium %s
 image/*; pqiv %s
 application/pdf; zathura %s

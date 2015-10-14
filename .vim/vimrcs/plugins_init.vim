@@ -19,7 +19,7 @@ let g:airline#extensions#tabline#enabled = 1
 Bundle 'bling/vim-markdown'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'klen/python-mode'
+"Bundle 'klen/python-mode'
 
 
 
