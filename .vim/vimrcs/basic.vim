@@ -185,7 +185,7 @@ set wrap "Wrap lines
 
 
 "Folding
-set fdm=syntax
+"set fdm=syntax
 noremap <leader>l zo
 noremap <leader>L zO
 noremap <leader>h zc

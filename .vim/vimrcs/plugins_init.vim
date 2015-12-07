@@ -5,20 +5,21 @@ set rtp+=~/.vim/bundle/vundle
 
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'vim-scripts/YankRing.vim'
-Bundle 'viroulep/peaksea'
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'bling/vim-airline'
+Plugin 'gmarik/vundle'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'vim-scripts/YankRing.vim'
+Plugin 'viroulep/peaksea'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 "Bundle 'vim-powerline'
-Bundle 'bling/vim-markdown'
-"Bundle 'Valloric/YouCompleteMe'
-Bundle 'airblade/vim-gitgutter'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'airblade/vim-gitgutter'
 "Bundle 'klen/python-mode'
 
 
