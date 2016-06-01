@@ -31,3 +31,15 @@
 [submodule ".vim/bundle/peaksea"]
 	path = .vim/bundle/peaksea
 	url = https://github.com/viroulep/peaksea.git
+[submodule ".zsh/zsh-git-prompt"]
+	path = .zsh/zsh-git-prompt
+	url = https://github.com/olivierverdier/zsh-git-prompt.git
+[submodule ".zsh/zsh-syntax-highlighting"]
+	path = .zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".zsh/zsh-autosuggestions"]
+	path = .zsh/zsh-autosuggestions
+	url = https://github.com/tarruda/zsh-autosuggestions.git
+[submodule ".zsh/zsh-fuzzy-match"]
+	path = .zsh/zsh-fuzzy-match
+	url = https://github.com/tarruda/zsh-fuzzy-match.git

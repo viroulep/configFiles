@@ -1,16 +1,49 @@
 #Use vim keybindings
 bindkey -v
 
+source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 #Custom prompt for line-editing
 function zle-line-init zle-keymap-select {
-    RPSTMP="${${KEYMAP/vicmd/${RPS1_CMD}}/(main|viins)/${RPS1_INS}}"
-    RPS1=$RPSTMP
+    PS1TMP="${${KEYMAP/vicmd/${PS1_CMD}}/(main|viins)/${PS1_INS}}"
+    PS1=$PS1TMP
     zle reset-prompt
 }
 
-#Load custom line editing
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+
+
+
+unsetopt flowcontrol
+
+# Run Selecta in the current working directory, appending the selected path, if
+# any, to the current command, followed by a space.
+function insert-selecta-path-in-command-line() {
+    local selected_path
+    # Print a newline or we'll clobber the old prompt.
+    echo
+    # Find the path; abort if the user doesn't select anything.
+    selected_path=$(find * -type d -maxdepth 4 | hs) || return
+    # Append the selection to the current command buffer.
+    eval 'LBUFFER="$LBUFFER$selected_path "'
+    # Redraw the prompt since Selecta has drawn several new lines of text.
+    zle reset-prompt
+}
+
+function go-back() {
+    cd ..
+    zle reset-prompt
+}
+zle -N go-back
+bindkey '^@' go-back
+bindkey -a '^@' go-back
+
+# Create the zle widget
+zle -N insert-selecta-path-in-command-line
+# Bind the key to the newly created widget
+bindkey "^[[Z" "insert-selecta-path-in-command-line"
 
 #Ctrl+left/right is back !
 bindkey ';5D' backward-word

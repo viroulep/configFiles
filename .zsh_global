@@ -6,12 +6,18 @@ PINK="%{"$'\e[1;38;5;204m'"%}"
 GREEN="%{"$'\e[1;38;5;34m'"%}"
 RESET="%{"$'\e[0m'"%}"
 
+
+source $HOME/.zsh/zsh-git-prompt/zshrc.sh
+export GIT_PROMPT_EXECUTABLE="haskell"
+#export ZSH_THEME_GIT_PROMPT_CACHE="1"
+
+
 #PS1 sexy ([heure]:path/to/directory)
-export PS1="[${YELLOW}%T${RESET}]:${LIGHT_BLUE}%~${RESET}$ "
+export PS1_INS='[${YELLOW}%T${RESET}] ${LIGHT_BLUE_INS}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
+export PS1_CMD='[${YELLOW}%T${RESET}] ${GREEN}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
+export PS1=$PS1_INS
 #Je suis pas perdu (login@host)
-export RPS1_INS="(${PINK}%n${RESET}@${LIGHT_BLUE_INS}%M${RESET})"
-export RPS1_CMD="(${PINK}%n${RESET}@${GREEN}%M${RESET})"
-export RPS1=$RPS1_INS
+#export RPS1='$(git_super_status)'
 
 #Rainbow unicorn
 export LESS_TERMCAP_mb=$'\E[01;31m'             # begin blinking
@@ -31,14 +37,18 @@ export JAVA_HOME=/usr/lib/jvm/java-oracle
 #Ajoute plein d'endroits sympas au path du linker
 export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$HOME/dev/lives-2.4.6/install_lives/lib:$LD_LIBRARY_PATH
+export PATH=$HOME/dev/lives-2.4.6/install_lives/bin:$PATH
 export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
 
 #Ajoute plein d'endroits sympas au path
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
-#export C_INCLUDE_PATH=$HOME/local/include:$C_INCLUDE_PATH
-#export CPLUS_INCLUDE_PATH=$HOME/local/include:$CPLUS_INCLUDE_PATH
+export C_INCLUDE_PATH=$HOME/local/include
+export CPLUS_INCLUDE_PATH=$HOME/local/include
 
 #Python path for YCM
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
+
+export BROWSER=chromium

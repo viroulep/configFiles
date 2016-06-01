@@ -157,7 +157,7 @@ bindsym $mod+c exec i3-msg workspace "`list_workspaces | dmenu -b -p 'switch to'
 bindsym $mod+Shift+c exec i3-msg move container to workspace "`list_workspaces | dmenu -b -p 'move to:' -nb black -nf white -sb '#772865'`"
 
 #Chromium setup
-assign [class="^Chromium"] web
+assign [class="^chromium"] web
 assign [class="Xchat"] IM
 
 #Move workspace to next output
@@ -204,7 +204,8 @@ bindsym $mod+u [class="Spot|mpc"] scratchpad show
 for_window [class="Binding of Isaac.*"] floating enable
 for_window [class="item_tracker.*"] floating enable
 for_window [class="Llanfair"] floating enable
-for_window [class="Xchat"] floating enable
+for_window [class="Dustforce.*"] floating enable
+for_window [title="140"] floating enable
 
 #Set wallpaper
 exec --no-startup-id feh --bg-scale $HOME/Images/wallpaper.png

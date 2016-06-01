@@ -20,6 +20,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-sleuth'
 "Bundle 'klen/python-mode'
 
 

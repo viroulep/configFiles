@@ -1,5 +1,6 @@
 [core]
     editor = /usr/local/bin/vim
+    excludesfile = ~/.gitignore
 [user]
     name = Philippe Virouleau
     email = philippe.virouleau@imag.fr

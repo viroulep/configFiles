@@ -13,6 +13,7 @@ _force_rehash() {
   (( CURRENT == 1 )) && rehash
   return 1	# Because we didn't really complete anything
 }
+
 zstyle ':completion:::::' completer _force_rehash _complete _approximate
 
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' ''
@@ -47,6 +48,10 @@ mesg n
 xset b off
 setopt no_BEEP
 
+compdef _xrandr_outputs setupscreens
+compdef '_files -g "*.pdf"' zathura
+compdef '_files -g "*.pdf"' evince
+
 #Variables globales
 source $HOME/.zsh_global
 
@@ -56,11 +61,8 @@ source $HOME/.zsh_helpers
 #Alias
 source $HOME/.zsh_aliases
 
+
 #ZLE
 source $HOME/.zsh_zle
-
-compdef _xrandr_outputs setupscreens
-compdef '_files -g "*.pdf"' zathura
-compdef '_files -g "*.pdf"' evince
 
 ponysay -q

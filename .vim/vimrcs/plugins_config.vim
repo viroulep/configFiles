@@ -59,7 +59,7 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 """"""""""""""""""""""""""""""""""""""""""""
 " => Pymod
 """""""""""""""""""""""""""""""""""""""""""
-nnoremap <leader>d :RopeGotoDefinition
+"nnoremap <leader>d :RopeGotoDefinition
 
 let g:pymode = 1
 let g:pymode_trim_whitespaces = 1
