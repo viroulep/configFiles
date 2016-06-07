@@ -143,8 +143,8 @@ subscribe inriatous@inria.fr
 # set up the sidebar, default not visible
 set sidebar_width=20
 set sidebar_visible=no
-set sidebar_delim=' '
-set sidebar_sort=yes
+set sidebar_divider_char='|'
+#set sidebar_sort_method=yes
 
 
 # color of folders with new mail
