@@ -91,3 +91,5 @@ alias wifi="wicd-curses"
 
 #Random
 alias random="_generate_random_number"
+
+alias brunch="ssh -A -t pviroule@ssh.ens-lyon.fr ssh pviroule@brunch.lip.ens-lyon.fr"

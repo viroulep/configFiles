@@ -18,7 +18,7 @@ zle -N zle-keymap-select
 
 unsetopt flowcontrol
 
-# Run Selecta in the current working directory, appending the selected path, if
+# Run heatseeker in the current working directory, appending the selected path, if
 # any, to the current command, followed by a space.
 function insert-selecta-path-in-command-line() {
     local selected_path
@@ -28,7 +28,7 @@ function insert-selecta-path-in-command-line() {
     selected_path=$(find * -type d -maxdepth 4 | hs) || return
     # Append the selection to the current command buffer.
     eval 'LBUFFER="$LBUFFER$selected_path "'
-    # Redraw the prompt since Selecta has drawn several new lines of text.
+    # Redraw the prompt since Heatseeker has drawn several new lines of text.
     zle reset-prompt
 }
 

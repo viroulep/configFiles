@@ -44,7 +44,8 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
 #Ajoute plein d'endroits sympas au path
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$HOME/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
+export PATH=$HOME/bin:$HOME/install-ffmpeg/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
+export PATH=$HOME/.rbenv/shims:$PATH
 export C_INCLUDE_PATH=$HOME/local/include
 export CPLUS_INCLUDE_PATH=$HOME/local/include
 
