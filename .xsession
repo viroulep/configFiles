@@ -17,5 +17,5 @@ urxvtd -q -f -o
 
 
 
-exec /usr/local/bin/i3 --shmlog-size=26214400
+exec /usr/bin/i3
 #exec $HOME/local/bin/i3 --shmlog-size=26214400

@@ -45,7 +45,9 @@ export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$HOME/bin:$HOME/install-ffmpeg/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
-export PATH=$HOME/.rbenv/shims:$PATH
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
+export PATH=$HOME/.local/bin:$PATH
 export C_INCLUDE_PATH=$HOME/local/include
 export CPLUS_INCLUDE_PATH=$HOME/local/include
 

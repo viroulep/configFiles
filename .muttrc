@@ -28,7 +28,7 @@ set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
 
 set smtp_url = "smtp://viroulea@smtp.inria.fr:587/"
 set smtp_pass = ""
-set from = "philippe.virouleau@imag.fr"
+set from = "philippe.virouleau@inria.fr"
 alternates "(philippe.virouleau@imag.fr)|(philippe.virouleau@inria.fr)|(philippe.44@gmail.com)"
 set realname = "Philippe Virouleau"
 set signature = "~/.mutt/sig"
