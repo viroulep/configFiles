@@ -64,5 +64,3 @@ source $HOME/.zsh_aliases
 
 #ZLE
 source $HOME/.zsh_zle
-
-ponysay -q

@@ -43,3 +43,6 @@
 [submodule ".zsh/zsh-fuzzy-match"]
 	path = .zsh/zsh-fuzzy-match
 	url = https://github.com/tarruda/zsh-fuzzy-match.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git

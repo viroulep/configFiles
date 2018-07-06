@@ -13,7 +13,7 @@ ulimit -c 0
 amixer -q set Master 40% unmute
 
 #Start urxvt daemon
-urxvtd -q -f -o
+#urxvtd -q -f -o
 
 
 

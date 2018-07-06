@@ -5,8 +5,8 @@ if has("mac") || has("macunix")
 elseif has("win16") || has("win32")
     set gfn=Bitstream\ Vera\ Sans\ Mono:h10
 elseif has("linux")
-    set gfn=Monospace\ 10
-    set shell=/bin/bash
+    "set gfn=Monospace\ 10
+    "set shell=/bin/bash
 endif
 
 " Disable scrollbars (real hackers don't use scrollbars for navigation!)

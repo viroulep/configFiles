@@ -130,8 +130,8 @@ syntax enable
 
 
 try
-    set t_Co=256
-    colorscheme peaksea
+    "set t_Co=256
+    colorscheme solarized
 catch
 endtry
 

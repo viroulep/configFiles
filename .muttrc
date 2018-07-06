@@ -2,7 +2,7 @@
 set mbox_type=Maildir
 
 #theme
-source $HOME/.mutt/mutt-theme-256
+source $HOME/.mutt/mutt-theme-16
 
 
 
@@ -69,7 +69,7 @@ set sort = 'reverse-threads'
 set sort_aux = 'last-date'
 #set sort_browser = 'reverse-date'
 set auto_tag = yes
-set locale = 'fr_FR.utf8'
+#set locale = 'fr_FR.utf8'
 set index_format = "%4C %Z %{%d %b %Y} %-15.15F (%?l?%4l&%4c?) %s"
 
 ignore "Authentication-Results:"

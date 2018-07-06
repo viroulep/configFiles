@@ -50,10 +50,10 @@ def dmenu(items,
     lines=None,
     monitor=None,
     prompt=None,
-    font=None,
-    normal_background='black',
+    font='Roboto Mono for Powerline,10',
+    normal_background='#073642',
     normal_foreground='white',
-    selected_background='#772865',
+    selected_background='#d33682',
     selected_foreground=None):
     """
     Open a dmenu to select an item

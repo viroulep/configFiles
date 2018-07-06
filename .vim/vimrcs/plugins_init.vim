@@ -6,6 +6,7 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Plugin 'gmarik/vundle'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
