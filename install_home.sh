@@ -1,5 +1,5 @@
 #!/bin/sh
-FILES=".mutt .fonts .muttrc .abook .fetchmailrc .mailcap .vimperatorrc .vimpcrc .inputrc .zshrc .zsh_aliases .zsh_zle .zsh_helpers .zsh_global .gitconfig .Xresources .xsession .xresume .i3 .i3status.conf .vim .vimrc .config/dunst .ncmpcpp .zsh .pypirc"
+FILES=".mutt .fonts .muttrc .abook .fetchmailrc .mailcap .vimperatorrc .vimpcrc .inputrc .zshrc .zsh_aliases .zsh_zle .zsh_helpers .zsh_global .gitconfig .Xresources .xsession .xresume .i3 .i3status.conf .i3blocks.conf .vim .vimrc .config/dunst .ncmpcpp .zsh .pypirc"
 DIR=`pwd`
 for f in $FILES;
 do
