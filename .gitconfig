@@ -1,23 +1,24 @@
 [core]
-    editor = /usr/bin/vim
-    excludesfile = ~/.gitignore
+  editor = /usr/bin/vim
+  excludesfile = ~/.gitignore
 [user]
-    name = Philippe Virouleau
-    email = philippe.44@gmail.com
+  name = Philippe Virouleau
+  email = philippe.44@gmail.com
+  signingkey = 39A3FAC18FF4B459FAE39CB6388E839CE641934D
 [color]
-    ui = auto
+  ui = auto
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+  current = yellow reverse
+  local = yellow
+  remote = green
 [color "diff"]
-    meta = yellow
-    frag = magenta
-    old = red
-    new = green
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
 [color "status"]
-    added = green
-    changed = yellow
-    untracked = cyan
+  added = green
+  changed = yellow
+  untracked = cyan
 [push]
-    default = simple
+  default = simple
