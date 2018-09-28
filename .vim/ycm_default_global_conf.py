@@ -21,14 +21,8 @@ def GetLanguage(filename):
 
 def Settings(**kwargs):
   language = kwargs['language']
-  filename = kwargs['filename']
-  with open("/tmp/titi.txt", "w") as f:
-    titi = "{}:{}:{}".format(*kwargs)
-    f.write(titi)
-    f.write(language)
-    f.write(filename)
-
   if language == "cfamily":
+    filename = kwargs['filename']
     return {
       'flags': all_flags[GetLanguage(filename)],
     }

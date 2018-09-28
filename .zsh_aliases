@@ -87,7 +87,7 @@ alias agdu="sudo apt-get dist-upgrade"
 alias acs="apt-cache search"
 
 #Wifi
-alias wifi="wicd-curses"
+alias wifi="nmtui"
 
 #Random
 alias random="_generate_random_number"
