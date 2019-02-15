@@ -1,0 +1,9 @@
+#!/bin/bash
+
+VPN_STATUS=`nmcli -t -f device con show | grep vpn`
+
+if [ x"$VPN_STATUS" == x"vpn0" ]; then
+  echo '<span foreground="#00FF00"></span>'
+else
+  echo '<span foreground="#FF0000"></span>'
+fi
