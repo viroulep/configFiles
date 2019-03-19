@@ -29,7 +29,7 @@ unsetopt beep extendedglob notify rm_star_silent
 
 #Autocompletion sur certains noms de domaine (plus safe que de ne pas hasher le known_host),
 #permet aussi d'activer la completion sur scp.
-zstyle -e ':completion:*' hosts 'reply=(bastion.inrialpes.fr telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr idkoiff.imag.fr incas idfreeze idkoiff)'
+#zstyle -e ':completion:*' hosts 'reply=(bastion.inrialpes.fr telesun.imag.fr ensisun.imag.fr incas.imag.fr idfreeze.imag.fr idkoiff.imag.fr incas idfreeze idkoiff)'
 
 #History stuff
 HISTFILE=~/.zsh_history
