@@ -89,3 +89,6 @@ alias wifi="nmtui"
 alias random="_generate_random_number"
 
 alias brunch="ssh -A -t pviroule@ssh.ens-lyon.fr ssh pviroule@brunch.lip.ens-lyon.fr"
+
+alias load_starpu="_load starpu"
+alias load_clang="_load clang"
