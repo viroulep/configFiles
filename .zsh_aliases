@@ -92,3 +92,5 @@ alias brunch="ssh -A -t pviroule@ssh.ens-lyon.fr ssh pviroule@brunch.lip.ens-lyo
 
 alias load_starpu="_load starpu"
 alias load_clang="_load clang"
+alias load_kstar="_load kstar"
+alias load_libkomp="_load libkomp"
