@@ -22,7 +22,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-sleuth'
 "Bundle 'klen/python-mode'
-
+Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
 
 
 filetype plugin indent on

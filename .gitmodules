@@ -49,3 +49,9 @@
 [submodule ".vim/bundle/vim-sleuth"]
 	path = .vim/bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
+[submodule ".vim/bundle/vim-jsx-typescript"]
+	path = .vim/bundle/vim-jsx-typescript
+	url = https://github.com/peitalin/vim-jsx-typescript
+[submodule ".vim/bundle/typescript-vim"]
+	path = .vim/bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim
