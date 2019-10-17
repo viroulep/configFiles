@@ -84,3 +84,5 @@ let g:pymode_lint_mccabe_complexity = 8
 
 " set filetypes as typescript.tsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+let g:llvm_ext_browser_open_command = "chromium"

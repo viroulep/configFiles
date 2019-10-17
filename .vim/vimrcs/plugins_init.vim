@@ -24,6 +24,8 @@ Plugin 'tpope/vim-sleuth'
 "Bundle 'klen/python-mode'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'caian-org/rst.vim'
+Plugin 'rhysd/vim-llvm'
 
 
 filetype plugin indent on
