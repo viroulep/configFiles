@@ -1,12 +1,22 @@
-#!/bin/zsh
+#!/bin/bash
+
+screen_present() {
+    found=0
+    while read present; do
+        if [ x"$1" == x"$present" ]; then
+            found=1
+            break
+        fi
+    done <<< $(xrandr | grep " conne" | cut -d " " -f 1)
+    echo $found
+}
+
 if [ "$#" -eq "0" ]; then
     echo "Liste des ecrans disponibles :"
     xrandr | grep "connected" | sed 's/\([A-Z]\+[-]\?[0-9]*\) \(\(dis\)\?connected\).*/\1 (\2)/'
 elif [ "$#" -eq "1" ]; then
     OUTPUT="$1"
-    xrandr | grep $OUTPUT | grep " connected "
-    PRESENT=$?
-    if [ $PRESENT -eq 0 ]; then
+    if [ $(screen_present $OUTPUT) -eq 1 ]; then
         xrandr --output $OUTPUT --auto
         xrandr | grep " conne" | sed 's/ conne.*//' | while read tosetoff; do
             if [ "$tosetoff" != "$OUTPUT" ]; then
@@ -25,11 +35,7 @@ else
     EXTERNAL_OUTPUT="$2"
     INTERNAL_OUTPUT="$1"
 
-    xrandr | grep $EXTERNAL_OUTPUT | grep " connected "
-    EXTERN_PRESENT=$?
-    xrandr | grep $INTERNAL_OUTPUT | grep " connected "
-    INTERN_PRESENT=$?
-    if [ $EXTERN_PRESENT -eq 0 -a $INTERN_PRESENT -eq 0 ]; then
+    if [ $(screen_present $EXTERNAL_OUTPUT) -eq 1 -a $(screen_present $INTERNAL_OUTPUT) -eq 1 ]; then
         xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT
         echo "Configuration terminée"
     else
