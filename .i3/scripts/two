@@ -1,0 +1,4 @@
+#!/bin/bash
+
+one
+setupscreens DP1-2 DP1-1
