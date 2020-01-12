@@ -7,7 +7,7 @@ termprefix='urxvt -e '
 
 
 choices ={
-        'lp(lock input)\n':'xtrlock',
+        'lp(lock input)\n':'alock -bg none -auth pam:service=alock',
         'suspend\n':'setupscreens eDP1;i3-msg workspace 10;i3lock -c 111111;sudo pm-suspend;',
         'shutdown\n':'sudo shutdown -h now',
         'lock(lock X)\n':'i3-msg workspace 10; i3lock -d -c 111111',
