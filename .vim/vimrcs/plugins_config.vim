@@ -82,7 +82,4 @@ let g:pymode_syntax_slow_sync = 1
 let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_lint_mccabe_complexity = 8
 
-" set filetypes as typescript.tsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
-
 let g:llvm_ext_browser_open_command = "chromium"
