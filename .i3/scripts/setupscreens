@@ -36,6 +36,7 @@ else
     INTERNAL_OUTPUT="$1"
 
     if [ $(screen_present $EXTERNAL_OUTPUT) -eq 1 -a $(screen_present $INTERNAL_OUTPUT) -eq 1 ]; then
+        #xrandr --output $INTERNAL_OUTPUT --crtc 1 --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT
         xrandr --output $INTERNAL_OUTPUT --auto --output $EXTERNAL_OUTPUT --auto --right-of $INTERNAL_OUTPUT
         echo "Configuration terminée"
     else

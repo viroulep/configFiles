@@ -32,7 +32,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 #export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
 #export CBLAS_CPPFLAGS="-I/usr/include/atlas"
 #export BOOST_INSTALL=$HOME/local
-export JAVA_HOME=/usr/lib/jvm/java-oracle
+export JAVA_HOME=/usr/lib/jvm/default-java
 
 #Ajoute plein d'endroits sympas au path du linker
 export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
@@ -54,4 +54,4 @@ export CPLUS_INCLUDE_PATH=$HOME/local/include
 #Python path for YCM
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
 
-export BROWSER=chromium
+#export BROWSER=chromium

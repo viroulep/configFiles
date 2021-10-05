@@ -38,7 +38,7 @@ SAVEHIST=1000
 
 
 #Parce que trop d'autocompletion tue l'autocompletion
-fignore=(.ali .o .toc .aux)
+fignore=(.ali .toc .aux)
 
 #Less plus sympatoche (less sur tgz, zip and co) : 
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
