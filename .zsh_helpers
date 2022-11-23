@@ -72,8 +72,7 @@ _load() {
     fi
 }
 
-work_on() {
-    if [ $# -eq 1 ]; then
-        source $HOME/.virtualenvs/${1}/bin/activate
-    fi
+load_guix() {
+    GUIX_PROFILE="$HOME/.config/guix/current"
+    . "$GUIX_PROFILE/etc/profile"
 }

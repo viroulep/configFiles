@@ -23,6 +23,6 @@
 [push]
   default = simple
 [commit]
-	gpgsign = true
+  gpgsign = true
 [pull]
-	rebase = false
+  rebase = false
