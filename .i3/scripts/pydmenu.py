@@ -79,5 +79,5 @@ def dmenu(items,
 
     input_str = "\n".join(items) + "\n"
 
-    proc = Popen(cli, stdout=PIPE, stdin=PIPE)
+    proc = Popen(cli, stdout=PIPE, stdin=PIPE, text=True)
     return proc.communicate(input_str)[0]
