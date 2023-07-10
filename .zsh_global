@@ -26,7 +26,7 @@ export LESS_TERMCAP_me=$'\E[0m'                 # end mode
 export LESS_TERMCAP_se=$'\E[0m'                 # end standout-mode
 export LESS_TERMCAP_so=$'\E[01;44;33m'          # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'                 # end underline
-export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline 
+export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 
 #Probablement inutile
 #export CBLAS_LDFLAGS="-L/usr/lib/atlas-base -llapack -lcblas -latlas"
@@ -34,22 +34,15 @@ export LESS_TERMCAP_us=$'\E[01;32m'             # begin underline
 #export BOOST_INSTALL=$HOME/local
 export JAVA_HOME=/usr/lib/jvm/default-java
 
-#Ajoute plein d'endroits sympas au path du linker
-export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LD_LIBRARY_PATH
-export LIBRARY_PATH=$JAVA_HOME/jre/lib:$JAVA_HOME/jre/lib/amd64/server:$HOME/libs:$HOME/local/lib64:$HOME/local/lib:/usr/local/lib:$LIBRARY_PATH
-export LD_LIBRARY_PATH=$HOME/dev/lives-2.4.6/install_lives/lib:$LD_LIBRARY_PATH
-export PATH=$HOME/dev/lives-2.4.6/install_lives/bin:$PATH
-export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig
-
 #Ajoute plein d'endroits sympas au path
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
-export PATH=$HOME/bin:$HOME/install-ffmpeg/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
+#export PATH=$HOME/bin:$HOME/install-ffmpeg/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 export PATH=$HOME/.local/bin:$PATH
-export C_INCLUDE_PATH=$HOME/local/include
-export CPLUS_INCLUDE_PATH=$HOME/local/include
+#export C_INCLUDE_PATH=$HOME/local/include
+#export CPLUS_INCLUDE_PATH=$HOME/local/include
 
 #Python path for YCM
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH

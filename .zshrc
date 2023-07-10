@@ -40,7 +40,7 @@ SAVEHIST=1000
 #Parce que trop d'autocompletion tue l'autocompletion
 fignore=(.ali .toc .aux)
 
-#Less plus sympatoche (less sur tgz, zip and co) : 
+#Less plus sympatoche (less sur tgz, zip and co) :
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 #La speciale Ensimag :
@@ -68,3 +68,6 @@ source $HOME/.zsh_zle
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export GUIX_PROFILE="$HOME/.config/guix/current"
+[ -s "$GUIX_PROFILE/etc/profile" ] && \. "$GUIX_PROFILE/etc/profile"
