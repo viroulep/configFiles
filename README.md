@@ -10,4 +10,4 @@ Autres choses à builder :
 - zsh-git-prompt
 - heatseeker:
   - wget -q -O hs https://github.com/rschmitt/heatseeker/releases/download/v1.5.0/hs-linux
-  - install -D hs ~/local/bin/hs
+  - install -D hs ~/.local/bin/hs

@@ -37,7 +37,6 @@ export JAVA_HOME=/usr/lib/jvm/default-java
 #Ajoute plein d'endroits sympas au path
 export PATH=/usr/local/bin:/usr/sbin:$PATH
 #export PATH=$JAVA_HOME/bin:$PATH
-#export PATH=$HOME/bin:$HOME/install-ffmpeg/bin:$HOME/local/bin:/usr/include/x86_64-linux-gnu:$PATH
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 export PATH=$HOME/.local/bin:$PATH
