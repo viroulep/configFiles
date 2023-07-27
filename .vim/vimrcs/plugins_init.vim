@@ -16,16 +16,17 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+"These are directly in the bundle folder (no submodule)
 "Bundle 'vim-powerline'
-Plugin 'plasticboy/vim-markdown'
+"Plugin 'plasticboy/vim-markdown'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-sleuth'
 "Bundle 'klen/python-mode'
 Plugin 'yuezk/vim-js'
 Plugin 'MaxMEllon/vim-jsx-pretty'
-Plugin 'caian-org/rst.vim'
 Plugin 'rhysd/vim-llvm'
+Plugin 'luochen1990/rainbow'
 
 
 filetype plugin indent on

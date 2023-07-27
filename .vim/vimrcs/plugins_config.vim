@@ -87,3 +87,9 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_lint_mccabe_complexity = 8
 
 let g:llvm_ext_browser_open_command = "chromium"
+
+" Rainbow parenthesis
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\ 'ctermfgs': ['4', '5', '1', '2', '3']
+\}
