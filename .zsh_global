@@ -47,3 +47,11 @@ export PATH=$HOME/.local/bin:$PATH
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
 
 #export BROWSER=chromium
+
+# G5K setup
+export GPUPPET_PREFIX=$HOME/.gpuppet
+export GPUPPET_PLATFORM=production
+export GPUPPET_LOCATION=grenoble
+export GPUPPET_USER=pvirouleau
+export GPUPPET_SSH_CONFIG=$GPUPPET_PREFIX/ssh/config
+alias cdgp='cd $GPUPPET_PREFIX/repo && source setup_env.sh && echo "==> Grid5000 Puppet 6 repository"'
