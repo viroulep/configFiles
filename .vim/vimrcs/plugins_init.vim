@@ -27,6 +27,7 @@ Plugin 'yuezk/vim-js'
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'rhysd/vim-llvm'
 Plugin 'luochen1990/rainbow'
+Plugin 'HiPhish/guile.vim'
 
 
 filetype plugin indent on

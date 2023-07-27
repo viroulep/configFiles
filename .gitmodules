@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/rainbow"]
 	path = .vim/bundle/rainbow
 	url = https://github.com/luochen1990/rainbow.git
+[submodule ".vim/bundle/guile.vim"]
+	path = .vim/bundle/guile.vim
+	url = https://github.com/HiPhish/guile.vim.git
