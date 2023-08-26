@@ -68,5 +68,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export GUIX_PACKAGE_PATH="$HOME/dev/guix-hpc:$GUIX_PACKAGE_PATH"
+# This makes the latest/current guix available
 export GUIX_PROFILE="$HOME/.config/guix/current"
 [ -s "$GUIX_PROFILE/etc/profile" ] && \. "$GUIX_PROFILE/etc/profile"

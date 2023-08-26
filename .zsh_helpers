@@ -72,9 +72,7 @@ _load() {
     fi
 }
 
-load_guix() {
-    GUIX_PROFILE="$HOME/.config/guix/current"
-    . "$GUIX_PROFILE/etc/profile"
+load_guix_profile() {
     GUIX_PROFILE="$HOME/.guix-profile"
     . "$GUIX_PROFILE/etc/profile"
 }
