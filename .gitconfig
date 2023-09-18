@@ -4,7 +4,6 @@
 [user]
   name = Philippe Virouleau
   email = philippe.44@gmail.com
-  signingkey = 954D34649DBF690284EE79142565679E3E9245CB
 [color]
   ui = auto
 [color "branch"]
@@ -22,7 +21,7 @@
   untracked = cyan
 [push]
   default = simple
-[commit]
-  gpgsign = true
 [pull]
   rebase = false
+[commit]
+  gpgsign = false

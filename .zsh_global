@@ -7,14 +7,16 @@ GREEN="%{"$'\e[1;38;5;34m'"%}"
 RESET="%{"$'\e[0m'"%}"
 
 
-source $HOME/.zsh/zsh-git-prompt/zshrc.sh
-export GIT_PROMPT_EXECUTABLE="haskell"
+#source $HOME/.zsh/zsh-git-prompt/zshrc.sh
+#export GIT_PROMPT_EXECUTABLE="haskell"
 #export ZSH_THEME_GIT_PROMPT_CACHE="1"
 
 
 #PS1 sexy ([heure]:path/to/directory)
-export PS1_INS='[${YELLOW}%T${RESET}] ${LIGHT_BLUE_INS}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
-export PS1_CMD='[${YELLOW}%T${RESET}] ${GREEN}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
+#export PS1_INS='[${YELLOW}%T${RESET}] ${LIGHT_BLUE_INS}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
+export PS1_INS='[%T] %M:%~ $ '
+#export PS1_CMD='[${YELLOW}%T${RESET}] ${GREEN}%M${RESET}:${LIGHT_BLUE}%~${RESET} $(git_super_status)$ '
+export PS1_CMD='[%T] %M:%~ $ '
 export PS1=$PS1_INS
 #Je suis pas perdu (login@host)
 #export RPS1='$(git_super_status)'

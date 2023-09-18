@@ -70,3 +70,5 @@ export NVM_DIR="$HOME/.nvm"
 
 export GUIX_PROFILE="$HOME/.config/guix/current"
 [ -s "$GUIX_PROFILE/etc/profile" ] && \. "$GUIX_PROFILE/etc/profile"
+
+export TERM=xterm
