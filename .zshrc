@@ -44,7 +44,6 @@ fignore=(.ali .toc .aux)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 #La speciale Ensimag :
-xset b off
 setopt no_BEEP
 
 compdef _xrandr_outputs setupscreens
