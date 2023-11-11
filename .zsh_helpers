@@ -75,4 +75,5 @@ _load() {
 load_guix_profile() {
     GUIX_PROFILE="$HOME/.guix-profile"
     . "$GUIX_PROFILE/etc/profile"
+    export GUIX_LOCPATH="$GUIX_PROFILE/lib/locale"
 }

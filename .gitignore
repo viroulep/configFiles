@@ -1,15 +1,7 @@
 .vim/temp_dirs/undodir/%*
 .vim/temp_dirs/yankring_history_v2.txt
-.config/dwb/default
-.config/dwb/userscript
-.config/dwb/mimetypes
-.cmus/autosave
-.cmus/command-history
-.cmus/lib.pl
-.cmus/playlist.pl
-.cmus/search-history
 *~
 *.pyc
-.abook/addressbook
 .mutt/cache
 .mutt/certificates
+compile_commands.json

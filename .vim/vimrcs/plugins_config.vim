@@ -91,5 +91,8 @@ let g:llvm_ext_browser_open_command = "chromium"
 " Rainbow parenthesis
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-\ 'ctermfgs': ['4', '5', '1', '2', '3']
+\ 'ctermfgs': ['4', '5', '1', '2', '3'],
+\ 'separately': {
+\   'cmake': 0,
+\ }
 \}

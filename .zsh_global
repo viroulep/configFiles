@@ -47,6 +47,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PYTHONPATH=$HOME/.i3/scripts:$PYTHON_PATH
 
 #export BROWSER=chromium
+export EDITOR=vim
 
 # G5K setup
 export GPUPPET_PREFIX=$HOME/.gpuppet
