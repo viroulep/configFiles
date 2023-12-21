@@ -4,4 +4,6 @@
 *.pyc
 .mutt/cache
 .mutt/certificates
+Session.vim
 compile_commands.json
+.byebug_history
