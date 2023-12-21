@@ -3,10 +3,10 @@ import os
 from os.path import expanduser
 
 homeDir = expanduser("~")
-default_cfamily_flags = ['-Wall', '-Wextra', '-fexceptions', '-I', homeDir + "/local/include", '-I', '.']
+default_cfamily_flags = ['-Wall', '-Wextra', '-I', '.']
 all_flags = {
   "c": default_cfamily_flags + ['-std=c99', '-x', 'c'],
-  "c++": default_cfamily_flags + ['-std=c++17', '-x', 'c++'],
+  "c++": default_cfamily_flags + ['-std=c++23', '-x', 'c++'],
   "": [],
 }
 
