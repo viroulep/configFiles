@@ -5,5 +5,6 @@
 .mutt/cache
 .mutt/certificates
 Session.vim
+.cache
 compile_commands.json
 .byebug_history
