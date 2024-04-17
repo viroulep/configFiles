@@ -52,9 +52,6 @@
 [submodule ".vim/bundle/vim-llvm"]
 	path = .vim/bundle/vim-llvm
 	url = https://github.com/rhysd/vim-llvm.git
-[submodule ".vim/bundle/vim-jsx-pretty"]
-	path = .vim/bundle/vim-jsx-pretty
-	url = https://github.com/MaxMEllon/vim-jsx-pretty.git
 [submodule ".vim/bundle/vim-js"]
 	path = .vim/bundle/vim-js
 	url = https://github.com/yuezk/vim-js.git
@@ -64,3 +61,6 @@
 [submodule ".vim/bundle/guile.vim"]
 	path = .vim/bundle/guile.vim
 	url = https://github.com/HiPhish/guile.vim.git
+[submodule ".vim/bundle/vim-jsx-typescript"]
+	path = .vim/bundle/vim-jsx-typescript
+	url = https://github.com/peitalin/vim-jsx-typescript.git
